@@ -1,0 +1,26 @@
+<header class="topbar shadow-sm">
+    
+    <!-- Logo / Marca -->
+  
+
+    <!-- Menú -->
+    <nav class="menu d-flex gap-3">
+      <a class="nav-link" routerLink="/panel-control" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Panel</a>
+      <a class="nav-link" routerLink="/lista-usuarios" routerLinkActive="active">Usuarios</a>
+      <a class="nav-link" routerLink="/tarjetas" routerLinkActive="active">Tarjetas</a>
+      <a class="nav-link" routerLink="/asistencias" routerLinkActive="active">Asistencias</a>
+      <a class="nav-link" routerLink="/configuracion" routerLinkActive="active">Configuración</a>
+      <a class="nav-link" routerLink="/notificaciones" routerLinkActive="active">Notificaciones</a>
+      <a class="nav-link" routerLink="/reportes" routerLinkActive="active">Reportes</a>
+    </nav>
+
+  
+</header>
+
+<main class="content container-fluid py-4">
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="footer text-center py-3">
+  <small>© 2026 AdminPanel</small>
+</footer>

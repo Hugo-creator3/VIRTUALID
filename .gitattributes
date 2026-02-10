@@ -1,0 +1,2 @@
+# Forzar que todos los archivos de texto se normalicen a LF al subir al repo
+* text=auto

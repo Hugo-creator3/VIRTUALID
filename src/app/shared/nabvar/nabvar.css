@@ -1,0 +1,54 @@
+/* TOPBAR */
+.topbar {
+  background: linear-gradient( #4D0F60, #4D0F60);
+  height: 64px;
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+
+/* MARCA */
+.brand {
+  letter-spacing: 1px;
+}
+
+/* MENÚ */
+.menu .nav-link {
+  color: #cbd5e1;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+
+.menu .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+/* LINK ACTIVO (Angular) */
+.menu .nav-link.active {
+  background-color: #2563eb;
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
+}
+
+/* CONTENIDO */
+.content {
+  min-height: calc(100vh - 64px - 50px);
+  background-color: #f8fafc;
+}
+
+/* FOOTER */
+.footer {
+  background-color: #4D0F60;
+  color: #94a3b8;
+}
