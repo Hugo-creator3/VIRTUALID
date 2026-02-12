@@ -1,0 +1,524 @@
+.asistencias-container {
+  width: 100%;
+  min-height: 100vh;
+  background: #f5f5f5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.content-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 60px;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.header-section h1 {
+  font-size: 48px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.btn-export {
+  padding: 12px 40px;
+  font-size: 16px;
+  font-weight: 600;
+  background: #4a4a4a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-export:hover {
+  background: #2a2a2a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 74, 74, 0.3);
+}
+
+.filter-section {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  background: #1e3a8a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+  background: #1e40af;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+}
+
+.filter-btn.active {
+  background: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.table-container {
+  background: white;
+  border: 3px solid #1a1a1a;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.asistencias-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.asistencias-table thead {
+  background: #1e3a8a;
+  color: white;
+}
+
+.asistencias-table thead th {
+  padding: 20px 20px;
+  text-align: left;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.actions-col {
+  width: 100px;
+  text-align: center !important;
+}
+
+.calendar-icon {
+  width: 24px;
+  height: 24px;
+  color: white;
+}
+
+.asistencias-table tbody tr {
+  border-bottom: 2px solid #e5e5e5;
+  transition: background 0.2s ease;
+}
+
+.asistencias-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+.asistencias-table tbody td {
+  padding: 20px 20px;
+  font-size: 16px;
+  color: #1a1a1a;
+}
+
+.estado-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.estado-badge.aceptado {
+  background: #22c55e;
+  color: white;
+}
+
+.estado-badge.denegado {
+  background: #ef4444;
+  color: white;
+}
+
+.status-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.btn-more {
+  padding: 8px;
+  border: none;
+  background: #e5e7eb;
+  color: #6b7280;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.btn-more:hover {
+  background: #9ca3af;
+  color: white;
+  transform: scale(1.1);
+}
+
+.btn-more svg {
+  width: 20px;
+  height: 20px;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.pagination-btn,
+.pagination-number {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: #4a4a4a;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination-btn:hover:not(:disabled),
+.pagination-number:hover:not(.active) {
+  background: #2a2a2a;
+  transform: scale(1.1);
+}
+
+.pagination-btn:disabled {
+  background: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.pagination-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+.pagination-number.active {
+  background: #f97316;
+}
+
+.pagination-btn.ellipsis {
+  background: transparent;
+  color: #4a4a4a;
+  cursor: default;
+}
+
+.pagination-btn.ellipsis:hover {
+  background: transparent;
+  transform: none;
+}
+
+@media (max-width: 1200px) {
+  .content-wrapper {
+    padding: 40px 40px;
+  }
+
+  .asistencias-table thead th,
+  .asistencias-table tbody td {
+    padding: 18px 15px;
+    font-size: 16px;
+  }
+
+  .header-section h1 {
+    font-size: 44px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .content-wrapper {
+    padding: 35px 30px;
+  }
+
+  .header-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 25px;
+  }
+
+  .header-section h1 {
+    font-size: 42px;
+  }
+
+  .btn-export {
+    width: 100%;
+  }
+
+  .filter-section {
+    gap: 12px;
+  }
+
+  .filter-btn {
+    flex: 1 1 calc(25% - 9px);
+    min-width: 130px;
+  }
+
+  .asistencias-table thead th,
+  .asistencias-table tbody td {
+    padding: 16px 12px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .content-wrapper {
+    padding: 30px 20px;
+  }
+
+  .header-section h1 {
+    font-size: 36px;
+  }
+
+  .filter-section {
+    gap: 10px;
+  }
+
+  .filter-btn {
+    flex: 1 1 calc(50% - 5px);
+    min-width: 120px;
+    padding: 11px 20px;
+    font-size: 15px;
+  }
+
+  .btn-export {
+    padding: 12px 30px;
+    font-size: 15px;
+  }
+
+  .asistencias-table {
+    min-width: 800px;
+  }
+
+  .asistencias-table thead th,
+  .asistencias-table tbody td {
+    padding: 14px 10px;
+    font-size: 14px;
+  }
+
+  .estado-badge {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+  .status-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .pagination-container {
+    gap: 8px;
+  }
+
+  .pagination-btn,
+  .pagination-number {
+    width: 38px;
+    height: 38px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  .content-wrapper {
+    padding: 25px 15px;
+  }
+
+  .header-section h1 {
+    font-size: 32px;
+  }
+
+  .header-section {
+    gap: 20px;
+  }
+
+  .filter-btn {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+
+  .asistencias-table {
+    min-width: 750px;
+  }
+
+  .asistencias-table thead th,
+  .asistencias-table tbody td {
+    padding: 12px 8px;
+    font-size: 13px;
+  }
+
+  .asistencias-table thead th {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .content-wrapper {
+    padding: 20px 12px;
+  }
+
+  .header-section {
+    gap: 18px;
+  }
+
+  .header-section h1 {
+    font-size: 28px;
+  }
+
+  .btn-export {
+    padding: 12px 25px;
+    font-size: 14px;
+  }
+
+  .filter-section {
+    gap: 8px;
+  }
+
+  .filter-btn {
+    padding: 11px 15px;
+    font-size: 14px;
+  }
+
+  .asistencias-table {
+    min-width: 700px;
+  }
+
+  .asistencias-table thead th,
+  .asistencias-table tbody td {
+    padding: 12px 6px;
+    font-size: 12px;
+  }
+
+  .asistencias-table thead th {
+    font-size: 13px;
+  }
+
+  .estado-badge {
+    padding: 5px 10px;
+    font-size: 12px;
+    gap: 6px;
+  }
+
+  .status-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .btn-more {
+    padding: 6px;
+  }
+
+  .btn-more svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .pagination-container {
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .pagination-btn,
+  .pagination-number {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+  }
+
+  .pagination-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 360px) {
+  .content-wrapper {
+    padding: 15px 10px;
+  }
+
+  .header-section h1 {
+    font-size: 24px;
+  }
+
+  .btn-export {
+    padding: 11px 20px;
+    font-size: 13px;
+  }
+
+  .filter-btn {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .asistencias-table {
+    min-width: 650px;
+  }
+
+  .asistencias-table thead th,
+  .asistencias-table tbody td {
+    padding: 10px 5px;
+    font-size: 11px;
+  }
+
+  .asistencias-table thead th {
+    font-size: 12px;
+  }
+
+  .estado-badge {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+
+  .pagination-btn,
+  .pagination-number {
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
+  }
+
+  .pagination-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+}
