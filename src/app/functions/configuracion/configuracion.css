@@ -15,7 +15,6 @@
   box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
 }
 
-/* Secciones */
 .section {
   padding: 30px 40px;
   display: flex;
@@ -27,7 +26,6 @@
   border-bottom: 2px solid #9e9e9e;
 }
 
-/* Encabezado */
 .header h2 {
   margin: 0;
   font-size: 28px;
@@ -45,7 +43,6 @@
   cursor: pointer;
 }
 
-/* Texto opciones */
 .option h3 {
   margin: 0;
   font-size: 22px;
@@ -67,7 +64,6 @@
   max-width: 80%;
 }
 
-/* Switch */
 .switch {
   position: relative;
   display: inline-block;
@@ -113,7 +109,6 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-/* Ubicación */
 .location {
   flex-direction: column;
   align-items: center;
