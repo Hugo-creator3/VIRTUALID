@@ -1,0 +1,41 @@
+<!-- Navbar component -->
+<app-nabvar></app-nabvar>
+
+<!-- Contenedor principal de planes -->
+<div class="planes-container">
+  <h1 class="planes-title">¡Consulta nuestros planes!</h1>
+  
+  <div class="planes-cards">
+    <div class="plan-card" *ngFor="let plan of planes" [class.destacado]="plan.destacado">
+      <!-- Badge de más contratado -->
+      <div class="badge-destacado" *ngIf="plan.destacado">
+        MÁS CONTRATADO
+      </div>
+      
+      <!-- Precio -->
+      <div class="plan-precio">
+        <span class="precio">{{ plan.precio }}</span>
+        <span class="periodo" *ngIf="plan.periodo">{{ plan.periodo }}</span>
+      </div>
+      
+      <!-- Nombre del plan -->
+      <h2 class="plan-nombre">{{ plan.nombre }}</h2>
+      
+      <!-- Descripción -->
+      <p class="plan-descripcion">{{ plan.descripcion }}</p>
+      
+      <!-- Características -->
+      <ul class="plan-caracteristicas">
+        <li *ngFor="let caracteristica of plan.caracteristicas">
+          <span class="check-icon">✓</span>
+          {{ caracteristica }}
+        </li>
+      </ul>
+      
+      <!-- Botón -->
+      <button class="btn-plan" (click)="elegirPlan(plan.nombre)">
+        Elegir plan
+      </button>
+    </div>
+  </div>
+</div>

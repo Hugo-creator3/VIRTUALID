@@ -1,0 +1,84 @@
+<!-- Navbar component -->
+<app-nabvar></app-nabvar>
+
+<!-- Contenedor principal con scroll -->
+<div class="main-container">
+  <!-- Sección 1: ¿Qué es VIRTUALID? -->
+  <section class="section section-1">
+    <div class="content-wrapper">
+      <div class="text-content">
+        <h1 class="title">¿QUÉ ES VIRTUALID?</h1>
+        <p class="description">
+          <strong>VIRTUALID</strong> es un software orientado a la transformación digital de los 
+          procesos de identificación, acceso y control institucional, agilizando 
+          trámites administrativos mediante la eliminación de formatos físicos y 
+          dinámicas verificables, integrando tecnologías como autenticación 
+          biométrica, códigos dinámicos, geolocalización y validación de identidad 
+          real.
+        </p>
+      </div>
+      <div class="image-content">
+        <div class="device-mockup">
+          <div class="device-screen"></div>
+        </div>
+        <button class="btn-comenzar" (click)="comenzar()">COMENZAR</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 2: ¿Quiénes somos? -->
+  <section class="section section-2">
+    <div class="content-wrapper">
+      <div class="text-content">
+        <h1 class="title">¿QUIÉNES SOMOS?</h1>
+        <p class="description">
+          Somos una empresa dedicada a la innovación tecnológica, analizamos 
+          y brindamos soluciones a problemas que pueden presentarse en 
+          nuestro día a día. De esta forma ofrecemos soluciones digitales que 
+          puedan satisfacer las necesidades de las personas que pasen por 
+          problemas específicos.
+        </p>
+      </div>
+      <div class="image-content">
+        <div class="device-mockup">
+          <div class="device-screen"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 3: Ventajas de VIRTUALID -->
+  <section class="section section-3">
+    <div class="content-wrapper">
+      <div class="text-content">
+        <h1 class="title">VENTAJAS DE VIRTUALID</h1>
+        <div class="advantages-grid">
+          <div class="advantage-card" *ngFor="let ventaja of ventajas">
+            <div class="advantage-icon">{{ ventaja.icon }}</div>
+            <h3>{{ ventaja.title }}</h3>
+            <p>{{ ventaja.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Indicadores de scroll -->
+<div class="scroll-indicators">
+  <span 
+    class="indicator" 
+    [class.active]="currentSection === 0"
+    (click)="scrollToSection(0)">
+  </span>
+  <span 
+    class="indicator" 
+    [class.active]="currentSection === 1"
+    (click)="scrollToSection(1)">
+  </span>
+  <span 
+    class="indicator" 
+    [class.active]="currentSection === 2"
+    (click)="scrollToSection(2)">
+  </span>
+</div>

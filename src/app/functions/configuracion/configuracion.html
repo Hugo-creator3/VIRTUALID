@@ -1,0 +1,84 @@
+<div class="page-container">
+
+  <div class="config-card">
+
+    <!-- Encabezado -->
+    <div class="section header">
+      <div>
+        <h2>Configuración de área de geolocalización</h2>
+        <p>Configura el área aceptada de la institución para el check-in</p>
+      </div>
+
+      <div class="settings-icon">
+        ⚙
+      </div>
+    </div>
+
+    <!-- Opción 1 -->
+    <div class="section option">
+      <div class="text-content">
+        <h3>Bloquear check-in después de más de 3 intentos seguidos</h3>
+        <p>
+          Se bloquearán los intentos de check-in después de que el usuario exceda los 3 intentos
+        </p>
+      </div>
+
+      <label class="switch">
+        <input type="checkbox" [(ngModel)]="bloqueoIntentos">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <!-- Opción 2 -->
+    <div class="section option">
+      <div class="text-content">
+        <h3>Bloquear check-in después del tiempo establecido</h3>
+        <p>
+          Se bloquearán los intentos de check-in después del tiempo establecido por la institución
+        </p>
+      </div>
+
+      <label class="switch">
+        <input type="checkbox" [(ngModel)]="bloqueoTiempo">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <!-- Opción 3 -->
+    <div class="section option">
+      <div class="text-content">
+        <h3>Mantener la Geo-Localización activada indefinidamente</h3>
+        <p class="warning">
+          Las coordenadas de cada usuario se guardarán cada 3 horas.
+        </p>
+      </div>
+
+      <label class="switch">
+        <input type="checkbox" [(ngModel)]="geoActiva">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <!-- Ubicación -->
+    <div class="section location">
+      <div>
+        <h3>Configuración de ubicación</h3>
+        <p>Selecciona la ubicación de tu institución</p>
+      </div>
+
+      <div class="map-container">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.176145574449!2d-99.16766592509961!3d19.43260778690147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f8c8f5b7c4e7%3A0x1234567890abcdef!2sCiudad%20de%20M%C3%A9xico!5e0!3m2!1ses!2smx!4v1700000000000"
+          width="100%"
+          height="100%"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy">
+        </iframe>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

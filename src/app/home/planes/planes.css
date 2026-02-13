@@ -1,0 +1,201 @@
+/* Contenedor principal */
+.planes-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+  padding: 100px 40px 60px;
+}
+
+/* Título principal */
+.planes-title {
+  font-size: 48px;
+  font-weight: bold;
+  color: #1a1a1a;
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+/* Contenedor de tarjetas */
+.planes-cards {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  padding: 40px;
+  background: rgba(128, 128, 128, 0.3);
+  border-radius: 20px;
+}
+
+/* Tarjeta de plan */
+.plan-card {
+  background: white;
+  border-radius: 15px;
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  min-height: 480px;
+}
+
+.plan-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Plan destacado */
+.plan-card.destacado {
+  border: 3px solid #4a0080;
+  transform: scale(1.05);
+}
+
+.plan-card.destacado:hover {
+  transform: scale(1.05) translateY(-10px);
+}
+
+/* Badge de más contratado */
+.badge-destacado {
+  position: absolute;
+  top: -15px;
+  right: 20px;
+  background: linear-gradient(135deg, #4a0080 0%, #6b0099 100%);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 10px rgba(74, 0, 128, 0.3);
+}
+
+/* Precio */
+.plan-precio {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+
+.precio {
+  font-size: 48px;
+  font-weight: bold;
+  color: #1a1a1a;
+}
+
+.periodo {
+  font-size: 16px;
+  color: #666;
+}
+
+/* Nombre del plan */
+.plan-nombre {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+}
+
+/* Descripción */
+.plan-descripcion {
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Lista de características */
+.plan-caracteristicas {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 30px 0;
+  width: 100%;
+  flex-grow: 1;
+}
+
+.plan-caracteristicas li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #333;
+}
+
+.check-icon {
+  color: #4a0080;
+  font-weight: bold;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+/* Botón de plan */
+.btn-plan {
+  background: linear-gradient(135deg, #2c3e99 0%, #1a2570 100%);
+  color: white;
+  border: none;
+  padding: 15px 60px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(44, 62, 153, 0.3);
+  width: 100%;
+  max-width: 200px;
+}
+
+.btn-plan:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(44, 62, 153, 0.5);
+  background: linear-gradient(135deg, #3448b0 0%, #1f2d85 100%);
+}
+
+.btn-plan:active {
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+  .planes-title {
+    font-size: 36px;
+    margin-bottom: 40px;
+  }
+
+  .planes-cards {
+    grid-template-columns: 1fr;
+    padding: 30px 20px;
+    gap: 40px;
+  }
+
+  .plan-card.destacado {
+    transform: scale(1);
+  }
+
+  .plan-card.destacado:hover {
+    transform: translateY(-10px);
+  }
+
+  .planes-container {
+    padding: 80px 20px 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .planes-title {
+    font-size: 28px;
+  }
+
+  .plan-card {
+    padding: 30px 20px;
+  }
+
+  .precio {
+    font-size: 40px;
+  }
+
+  .plan-nombre {
+    font-size: 20px;
+  }
+}
