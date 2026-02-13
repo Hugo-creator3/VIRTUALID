@@ -1,0 +1,174 @@
+/* Contenedor principal */
+.reportes-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+  padding: 100px 40px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Título principal */
+.reportes-title {
+  font-size: 48px;
+  font-weight: bold;
+  color: #1a1a1a;
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+/* Formulario de reporte */
+.reporte-form {
+  background: white;
+  border: 3px solid #2c3e99;
+  border-radius: 10px;
+  padding: 40px 50px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Grupo de formulario */
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+
+/* Controles del formulario */
+.form-control {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 14px;
+  border: none;
+  background-color: #e8e8e8;
+  border-radius: 5px;
+  font-family: Arial, sans-serif;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  background-color: #ddd;
+  box-shadow: 0 0 0 2px rgba(44, 62, 153, 0.2);
+}
+
+.form-control::placeholder {
+  color: #888;
+}
+
+/* Select */
+select.form-control {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+select.form-control option {
+  background-color: white;
+  color: #333;
+}
+
+/* Inputs de fecha */
+.fecha-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+input[type="date"].form-control {
+  cursor: pointer;
+}
+
+input[type="date"].form-control::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(0.5);
+}
+
+/* Textarea */
+.textarea-mensaje {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Botón enviar */
+.btn-enviar {
+  background: linear-gradient(135deg, #2c3e99 0%, #1a2570 100%);
+  color: white;
+  border: none;
+  padding: 15px 60px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(44, 62, 153, 0.3);
+  display: block;
+  margin: 30px auto 0;
+  min-width: 180px;
+}
+
+.btn-enviar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(44, 62, 153, 0.5);
+  background: linear-gradient(135deg, #3448b0 0%, #1f2d85 100%);
+}
+
+.btn-enviar:active {
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .reportes-title {
+    font-size: 36px;
+    margin-bottom: 40px;
+  }
+
+  .reporte-form {
+    padding: 30px 25px;
+  }
+
+  .fecha-inputs {
+    grid-template-columns: 1fr;
+  }
+
+  .reportes-container {
+    padding: 80px 20px 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .reportes-title {
+    font-size: 28px;
+  }
+
+  .reporte-form {
+    padding: 25px 20px;
+    border-width: 2px;
+  }
+
+  .form-group label {
+    font-size: 13px;
+  }
+
+  .form-control {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .btn-enviar {
+    padding: 12px 40px;
+    font-size: 15px;
+  }
+}

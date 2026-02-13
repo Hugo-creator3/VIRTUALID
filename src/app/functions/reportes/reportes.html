@@ -1,1 +1,60 @@
-<p>reportes works!</p>
+<!-- Navbar component -->
+<app-nabvar></app-nabvar>
+
+<!-- Contenedor principal de reportes -->
+<div class="reportes-container">
+  <h1 class="reportes-title">Reportes</h1>
+  
+  <div class="reporte-form">
+    <!-- Tipo de reporte -->
+    <div class="form-group">
+      <label for="tipoReporte">Tipo de reporte</label>
+      <select 
+        id="tipoReporte" 
+        class="form-control"
+        [(ngModel)]="reporte.tipoReporte"
+        name="tipoReporte">
+        <option value="" disabled selected>Problema de sistema</option>
+        <option *ngFor="let tipo of tiposReporte" [value]="tipo">
+          {{ tipo }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Rango de Fechas -->
+    <div class="form-group">
+      <label>Rango de Fechas</label>
+      <div class="fecha-inputs">
+        <input 
+          type="date" 
+          class="form-control"
+          [(ngModel)]="reporte.fechaInicio"
+          name="fechaInicio"
+          placeholder="Fecha de inicio">
+        <input 
+          type="date" 
+          class="form-control"
+          [(ngModel)]="reporte.fechaFin"
+          name="fechaFin"
+          placeholder="Fecha de inicio">
+      </div>
+    </div>
+
+    <!-- Mensaje -->
+    <div class="form-group">
+      <label for="mensaje">Escribe tu mensaje</label>
+      <textarea 
+        id="mensaje"
+        class="form-control textarea-mensaje"
+        [(ngModel)]="reporte.mensaje"
+        name="mensaje"
+        placeholder="Mensaje"
+        rows="4"></textarea>
+    </div>
+
+    <!-- Botón Enviar -->
+    <button class="btn-enviar" (click)="enviarReporte()">
+      Enviar
+    </button>
+  </div>
+</div>
