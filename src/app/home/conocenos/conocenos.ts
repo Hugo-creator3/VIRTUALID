@@ -62,7 +62,7 @@ export class Conocenos implements OnInit {
   }
 
   // Detectar scroll para actualizar indicadores
-  @HostListener('window:scroll', ['$e vent'])
+  @HostListener('window:scroll')
   onScroll(): void {
     const mainContainer = document.querySelector('.main-container');
     const sections = document.querySelectorAll('.section');
