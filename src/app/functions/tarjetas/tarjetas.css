@@ -1,0 +1,354 @@
+:host {
+  --primary-purple: #4a0e4e;
+  --accent-blue: #1a237e;
+  --alert-orange: #e69138;
+  --bg-white: #ffffff;
+}
+
+.main-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  min-height: 100vh;
+}
+
+/* Navbar */
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: 600;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin: 2rem 0;
+  color: #000;
+}
+
+/* Layout Grid */
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 0 5%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card-section {
+  background: white;
+  border: 3px solid var(--accent-blue);
+  padding: 2rem;
+  min-height: 450px;
+  position: relative;
+}
+
+/* Zona de Carga */
+.upload-zone {
+  border: 3px dashed #000;
+  border-radius: 40px;
+  padding: 2rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.upload-icon { font-size: 3rem; margin-bottom: 10px; }
+
+.file-info { color: #666; font-size: 0.9rem; }
+
+/* Alerta IA */
+.ia-alert {
+  background-color: var(--alert-orange);
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid red;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Paleta de Colores */
+.colors { display: flex; gap: 15px; margin-top: 10px; }
+
+.color-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Tarjeta de ID (Preview) */
+.id-card-preview {
+  background: linear-gradient(135deg, #001a57 0%, #003399 100%);
+  border-radius: 12px;
+  padding: 20px;
+  color: white;
+  width: 320px;
+  height: 180px;
+  margin: 0 auto 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-header { text-align: right; font-weight: bold; }
+
+.card-body { display: flex; gap: 15px; margin-top: 10px; }
+
+.profile-pic img {
+  width: 70px;
+  height: 80px;
+  border-radius: 5px;
+  object-fit: cover;
+  border: 1px solid white;
+}
+
+.user-name { margin: 0; font-size: 1.1rem; }
+.user-id, .user-role { margin: 2px 0; font-size: 0.8rem; opacity: 0.9; }
+
+.qr-code {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  font-size: 2.5rem;
+}
+
+/* Formulario y Botón */
+.form-group {
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.form-group label { display: block; font-weight: bold; margin-bottom: 5px; }
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #000;
+  box-sizing: border-box;
+}
+
+.btn-save {
+  background-color: var(--accent-blue);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 20px;
+  width: fit-content;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.settings-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+/* =========================
+   ANIMACIONES GENERALES
+========================= */
+
+/* Animación de entrada suave */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeSlideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeSlideRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Aplicación de animaciones */
+.page-title {
+  animation: fadeSlideUp 0.8s ease-out;
+}
+
+.left-panel {
+  animation: fadeSlideLeft 0.9s ease-out;
+}
+
+.right-panel {
+  animation: fadeSlideRight 0.9s ease-out;
+}
+
+/* =========================
+   EFECTO TARJETAS
+========================= */
+
+.card-section {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.card-section:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+/* =========================
+   UPLOAD ZONE INTERACTIVA
+========================= */
+
+.upload-zone {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.upload-zone:hover {
+  background-color: #f0f4ff;
+  border-color: var(--accent-blue);
+  transform: scale(1.02);
+}
+
+.upload-icon {
+  transition: transform 0.4s ease;
+}
+
+.upload-zone:hover .upload-icon {
+  transform: scale(1.2) rotate(8deg);
+}
+
+/* =========================
+   ALERTA IA CON PULSO
+========================= */
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0px rgba(230,145,56,0.4); }
+  50% { box-shadow: 0 0 20px rgba(230,145,56,0.7); }
+  100% { box-shadow: 0 0 0px rgba(230,145,56,0.4); }
+}
+
+.ia-alert {
+  animation: pulseGlow 2.5s infinite ease-in-out;
+}
+
+/* =========================
+   PALETA ANIMADA
+========================= */
+
+.color-circle {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.color-circle:hover {
+  transform: scale(1.2) rotate(10deg);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+/* =========================
+   TARJETA ID EFECTO FLOAT
+========================= */
+
+@keyframes floatCard {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+.id-card-preview {
+  animation: floatCard 4s ease-in-out infinite;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.id-card-preview:hover {
+  transform: scale(1.05);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+/* Brillo animado tipo glass */
+.id-card-preview::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    120deg,
+    transparent 40%,
+    rgba(255,255,255,0.2) 50%,
+    transparent 60%
+  );
+  transform: rotate(25deg);
+  animation: shine 5s infinite linear;
+}
+
+@keyframes shine {
+  from { transform: translateX(-100%) rotate(25deg); }
+  to { transform: translateX(100%) rotate(25deg); }
+}
+
+/* =========================
+   INPUT ANIMADO
+========================= */
+
+.input-field {
+  transition: all 0.3s ease;
+}
+
+.input-field:focus {
+  outline: none;
+  border: 2px solid var(--accent-blue);
+  box-shadow: 0 0 10px rgba(26,35,126,0.3);
+  transform: scale(1.02);
+}
+
+/* =========================
+   BOTÓN INTERACTIVO
+========================= */
+
+.btn-save {
+  transition: all 0.3s ease;
+}
+
+.btn-save:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.btn-save:active {
+  transform: scale(0.95);
+}
+
+/* =========================
+   ICONO CONFIGURACIÓN
+========================= */
+
+.settings-icon {
+  transition: transform 0.5s ease;
+}
+
+.settings-icon:hover {
+  transform: rotate(180deg) scale(1.2);
+}

@@ -1,2 +1,94 @@
-<p>notificaciones works!</p>
+<div class="container py-5 notificaciones-wrapper">
 
+  <!-- Título -->
+  <div class="row mb-5">
+    <div class="d-flex-center">
+      <h1 class="page-title fw-bold titulo-animado">
+        Centro de notificaciones
+      </h1>
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <div class="row mb-5">
+    <div class="col d-flex-center">
+      <button class="btn btn-pill btn-activo">Todas</button>
+      <button class="btn btn-pill btn-light-custom">Del Sistema</button>
+      <button class="btn btn-pill btn-light-custom">De Usuarios</button>
+      <button class="btn btn-pill btn-light-custom">Del equipo</button>
+    </div>
+  </div>
+
+  <!-- Notificaciones -->
+  <div class="row g-4">
+
+    <!-- Card 1 -->
+    <div class="col-12">
+      <div class="card card-notificacion shadow-sm fade-in">
+        <div class="card-body d-flex flex-column flex-md-row align-items-start gap-4">
+
+          <span class="badge-custom badge-critico">
+            CRÍTICO
+          </span>
+
+          <div>
+            <h5 class="fw-bold fs-4">
+              Múltiples intentos fallidos detectados
+            </h5>
+            <p class="fs-5 mb-0">
+              El usuario ID: 045 ha intentado acceder 4 veces sin éxito en los
+              últimos 10 minutos. Se ha bloqueado su check-in.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="col-12">
+      <div class="card card-notificacion shadow-sm fade-in delay-1">
+        <div class="card-body d-flex flex-column flex-md-row align-items-start gap-4">
+
+          <span class="badge-custom badge-mensaje">
+            MENSAJE
+          </span>
+
+          <div>
+            <h5 class="fw-bold fs-4">
+              Mensaje de usuario - Hugo Martínez Vallejo ID: 055
+            </h5>
+            <p class="fs-5 mb-0">
+              Disculpe jefe, hoy tendré que llegar un poco tarde debido a un inconveniente.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="col-12">
+      <div class="card card-notificacion shadow-sm fade-in delay-2">
+        <div class="card-body d-flex flex-column flex-md-row align-items-start gap-4">
+
+          <span class="badge-custom badge-alerta">
+            ALERTA
+          </span>
+
+          <div>
+            <h5 class="fw-bold fs-4">
+              Alerta de problemas del software
+            </h5>
+            <p class="fs-5 mb-0">
+              La plataforma está teniendo pequeños problemas, trataremos de solucionarlo de inmediato.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

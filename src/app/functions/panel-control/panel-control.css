@@ -1,0 +1,134 @@
+:host {
+  --primary-purple: #4a0e4e;
+  --dark-blue: #102a83;
+  --bg-gray: #e0e0e0;
+  --sidebar-width: 60px;
+}
+
+.dashboard-wrapper {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; /* Fuente más limpia */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- SECCIONES SIN CAMBIOS (Nav y Sidebar) --- */
+.top-nav { background-color: var(--primary-purple); padding: 12px 30px; display: flex; justify-content: flex-end; }
+.nav-links a { color: white; text-decoration: none; margin-left: 20px; font-size: 0.95rem; font-weight: 600; }
+.sidebar { background-color: var(--dark-blue); width: var(--sidebar-width); display: flex; flex-direction: column; align-items: center; padding: 20px 0; gap: 20px; }
+.side-icon { color: white; font-size: 1.2rem; cursor: pointer; opacity: 0.8; }
+.side-icon:hover { opacity: 1; }
+
+/* --- SECCIONES MODIFICADAS (Más pequeñas/profesionales) --- */
+.main-layout { display: flex; flex: 1; }
+
+.content {
+  flex: 1;
+  padding: 25px 60px; /* Más aire en los laterales */
+  text-align: center;
+  max-width: 1000px; /* Limitamos el ancho para que no se estire demasiado */
+  margin: 0 auto;
+}
+
+.main-title {
+  font-size: 1.8rem; /* Reducido de 3rem */
+  font-weight: 800;
+  margin-bottom: 30px;
+  color: #222;
+}
+
+/* Métricas reducidas */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px; /* Espacio más compacto */
+  margin-bottom: 40px;
+}
+
+.metric-card {
+  background-color: var(--dark-blue);
+  color: white;
+  padding: 15px 10px; /* Padding más ajustado */
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.metric-card .number { 
+  font-size: 2.2rem; /* Reducido de 4rem */
+  font-weight: bold; 
+  display: block;
+}
+
+.metric-card .label { 
+  font-size: 0.85rem; /* Reducido de 1.4rem */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.9;
+}
+
+/* Gráfico más estilizado */
+.chart-container {
+  border: 2px solid var(--dark-blue);
+  border-radius: 12px;
+  background-color: var(--bg-gray);
+  padding: 15px 25px 45px 25px; /* Ajuste para que los números de abajo quepan */
+  position: relative;
+}
+
+.chart-title {
+  margin: 0 0 15px 0;
+  font-size: 1.1rem; /* Reducido de 1.8rem */
+  font-weight: 700;
+  color: #333;
+}
+
+.chart-area {
+  display: flex;
+  height: 180px; /* Reducido de 300px */
+}
+
+.y-axis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-right: 15px;
+  font-size: 0.85rem; /* Reducido de 1.5rem */
+  font-weight: 700;
+  color: #444;
+}
+
+.bars-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  border-bottom: 2px solid var(--dark-blue);
+}
+
+.bar-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 12%;
+  position: relative;
+}
+
+.bar {
+  width: 100%;
+  border-radius: 4px 4px 0 0;
+  transition: transform 0.3s ease;
+}
+
+.bar:hover { transform: scaleX(1.05); }
+
+.purple-dark { background-color: #430a4d; }
+.purple-medium { background-color: #721c8b; }
+.purple-vibrant { background-color: #9c27b0; }
+
+.bar-value {
+  position: absolute;
+  bottom: -28px; /* Ajustado para el nuevo tamaño */
+  font-size: 0.9rem; /* Reducido de 1.5rem */
+  font-weight: bold;
+  color: #000;
+}
