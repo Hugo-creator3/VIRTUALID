@@ -1,2 +1,102 @@
-<p>asistencias works!</p>
+<div class="asistencias-container">
+  <div class="content-wrapper">
+    <div class="header-section">
+      <h1>Control de asistencia</h1>
+      <button class="btn-export">Exportar</button>
+    </div>
 
+    <div class="filter-section">
+      <button 
+        class="filter-btn"
+        [class.active]="currentFilter === 'hoy'"
+        (click)="setFilter('hoy')">
+        Lista de Hoy
+      </button>
+      <button 
+        class="filter-btn"
+        [class.active]="currentFilter === 'especificar'"
+        (click)="setFilter('especificar')">
+        Especificar
+      </button>
+      <button 
+        class="filter-btn"
+        [class.active]="currentFilter === 'categoria'"
+        (click)="setFilter('categoria')">
+        Categoría
+      </button>
+      <button 
+        class="filter-btn"
+        [class.active]="currentFilter === 'control'"
+        (click)="setFilter('control')">
+        Control
+      </button>
+    </div>
+
+    <div class="table-container">
+      <table class="asistencias-table">
+        <thead>
+          <tr>
+            <th>Fecha/Hora</th>
+            <th>Usuario</th>
+            <th>Ubicación</th>
+            <th>Estado</th>
+            <th class="actions-col">
+              <svg class="calendar-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/>
+              </svg>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let asistencia of paginatedAsistencias">
+            <td>{{ asistencia.fechaHora }}</td>
+            <td>{{ asistencia.usuario }}</td>
+            <td>{{ asistencia.ubicacion }}</td>
+            <td>
+              <div class="estado-badge" [class.aceptado]="asistencia.estado === 'Aceptado'" [class.denegado]="asistencia.estado === 'Denegado'">
+                <svg *ngIf="asistencia.estado === 'Aceptado'" class="status-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+                <svg *ngIf="asistencia.estado === 'Denegado'" class="status-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                </svg>
+                <span>{{ asistencia.estado }}</span>
+              </div>
+            </td>
+            <td class="actions-col">
+              <button class="btn-more" (click)="showMoreOptions(asistencia)" title="Más opciones">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                </svg>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination-container">
+      <button class="pagination-btn" (click)="previousPage()" [disabled]="currentPage === 1">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+        </svg>
+      </button>
+      
+      <button 
+        *ngFor="let page of getPageNumbers()" 
+        class="pagination-number"
+        [class.active]="page === currentPage"
+        (click)="goToPage(page)">
+        {{ page }}
+      </button>
+      
+      <button class="pagination-btn ellipsis" *ngIf="totalPages > 5">...</button>
+      
+      <button class="pagination-btn" (click)="nextPage()" [disabled]="currentPage === totalPages">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>

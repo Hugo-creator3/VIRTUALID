@@ -1,0 +1,115 @@
+.login-container {
+  height: 100vh;
+  background: #e6e6e6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.login-card {
+  width: 380px;
+  background: linear-gradient(145deg, #2f3f8f, #1e2f73);
+  padding: 40px;
+  border-radius: 20px;
+  color: white;
+  box-shadow: 0px 15px 40px rgba(0,0,0,0.3);
+}
+
+.login-card h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+
+label {
+  font-size: 14px;
+  margin-top: 10px;
+  display: block;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+.forgot {
+  font-size: 12px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+button {
+  width: 100%;
+  background: #0b2a4a;
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.continue {
+  text-align: center;
+  font-size: 14px;
+  margin: 15px 0;
+}
+
+.social-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.social-buttons button {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+
+.google {
+  background: #ffffff;
+  color: #db4437;
+}
+
+.github {
+  background: #000000;
+  color: white;
+}
+
+.facebook {
+  background: #1877f2;
+  color: white;
+}
+
+.social-buttons button:hover {
+  transform: scale(1.1);
+}
+.register {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.register span {
+  color: #9ecbff;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.register span:hover {
+  text-decoration: underline;
+}
