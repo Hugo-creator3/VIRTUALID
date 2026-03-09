@@ -5,6 +5,13 @@
   display: flex;
   margin-left: auto;
   align-items: center;
+
+  /* make the topbar stick to the top when scrolling */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* sit above other content */
 }
 
 .menu {
@@ -43,6 +50,8 @@
 
 /* CONTENIDO */
 .content {
+  /* push the content down so it isn't hidden behind the fixed navbar */
+  padding-top: 64px;
   min-height: calc(100vh - 64px - 50px);
   background-color: #f8fafc;
 }

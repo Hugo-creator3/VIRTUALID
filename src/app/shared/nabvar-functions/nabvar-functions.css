@@ -4,6 +4,13 @@
   height: 64px;
   display: flex;
   align-items: center;
+
+  /* sticky */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
 }
 .menu {
   display: flex;
@@ -41,6 +48,7 @@
 
 /* CONTENIDO */
 .content {
+  padding-top: 64px;
   min-height: calc(100vh - 64px - 50px);
   background-color: #f8fafc;
 }

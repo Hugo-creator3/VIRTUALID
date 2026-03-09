@@ -1,54 +1,60 @@
 <div class="login-container">
+  <div class="tech-particles">
+    <div class="particle chip"></div>
+    <div class="particle code"></div>
+    <div class="particle wifi"></div>
+    <div class="particle node"></div>
+    <div class="particle binary"></div>
+  </div>
 
   <div class="login-card">
-
     <h2>INICIO DE SESIÓN</h2>
 
     <form (ngSubmit)="login()">
+      <div class="input-group">
+        <label>Correo</label>
+        <input 
+          type="email"
+          placeholder="nombre@gmail.com"
+          [(ngModel)]="email"
+          name="email"
+          required
+        />
+      </div>
 
-      <label>Correo</label>
-      <input 
-        type="email"
-        placeholder="nombre@gmail.com"
-        [(ngModel)]="email"
-        name="email"
-        required
-      />
-
-      <label>Contraseña</label>
-      <input 
-        type="password"
-        placeholder="********"
-        [(ngModel)]="password"
-        name="password"
-        required
-      />
+      <div class="input-group">
+        <label>Contraseña</label>
+        <input 
+          type="password"
+          placeholder="********"
+          [(ngModel)]="password"
+          name="password"
+          required
+        />
+      </div>
 
       <p class="forgot">¿Olvidaste tu contraseña?</p>
 
-      <button type="submit">Entrar</button>
-  <p class="continue">O continúa con:</p>
+      <button type="submit" class="btn-primary">Entrar</button>
+      
+      <p class="continue">O continúa con:</p>
 
-  <div class="social-buttons">
-    <button type="button" class="google">
-      <i class="fab fa-google"></i>
-    </button>
+      <div class="social-buttons">
+        <button type="button" class="google">
+          <i class="fab fa-google"></i>
+        </button>
+        <button type="button" class="github">
+          <i class="fab fa-github"></i>
+        </button>
+        <button type="button" class="facebook">
+          <i class="fab fa-facebook-f"></i>
+        </button>
+      </div>
+    </form>
 
-    <button type="button" class="github">
-      <i class="fab fa-github"></i>
-    </button>
-
-    <button type="button" class="facebook">
-      <i class="fab fa-facebook-f"></i>
-    </button>
+    <p class="register">
+      ¿No tienes cuenta?
+      <span (click)="irRegistro()">Regístrate</span>
+    </p>
   </div>
-
-</form>
-
-<p class="register">
-  ¿No tienes cuenta?
-  <span (click)="irRegistro()">Regístrate</span>
-</p>
-
-
 </div>

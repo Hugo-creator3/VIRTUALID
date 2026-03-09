@@ -12,6 +12,13 @@ import { CommonModule } from '@angular/common';
   styleUrl: './planes.css',
 })
 export class Planes implements OnInit {
+
+  planSeleccionado: string | null = null;
+
+seleccionarPlan(nombre: string) {
+  this.planSeleccionado = nombre;
+  this.elegirPlan(nombre);
+}
   
   // Lista de planes
   planes = [

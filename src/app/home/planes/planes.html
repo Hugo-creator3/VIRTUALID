@@ -1,40 +1,47 @@
 
-
-<!-- Contenedor principal de planes -->
-<div class="planes-container">
-  <h1 class="planes-title">¡Consulta nuestros planes!</h1>
+<div class="planes-wrapper">
   
-  <div class="planes-cards">
-    <div class="plan-card" *ngFor="let plan of planes" [class.destacado]="plan.destacado">
-      <!-- Badge de más contratado -->
-      <div class="badge-destacado" *ngIf="plan.destacado">
-        MÁS CONTRATADO
+  <div class="planes-container">
+    
+    <header class="planes-header">
+      
+      <h1 class="planes-title">Planes y Precios</h1>
+      <p class="planes-subtitle">Selecciona la opción que mejor se adapte a tu institución</p>
+    </header>
+    
+    <div class="planes-grid">
+      <div class="plan-card" *ngFor="let plan of planes" [class.destacado]="plan.destacado">
+        <div class="badge-premium" *ngIf="plan.destacado">
+          MÁS POPULAR
+        </div>
+        
+        <div class="plan-content">
+          <h2 class="plan-nombre">{{ plan.nombre }}</h2>
+          
+          <div class="plan-precio">
+            <span class="currency">$</span>
+            <span class="precio">{{ plan.precio }}</span>
+            <span class="periodo">/{{ plan.periodo || 'mes' }}</span>
+          </div>
+          
+          <p class="plan-descripcion">{{ plan.descripcion }}</p>
+          
+          <div class="divider"></div>
+          
+          <ul class="plan-caracteristicas">
+            <li *ngFor="let caracteristica of plan.caracteristicas">
+              <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              {{ caracteristica }}
+            </li>
+          </ul>
+        </div>
+        
+        <button class="btn-plan" (click)="elegirPlan(plan.nombre)">
+          Comenzar ahora
+        </button>
       </div>
-      
-      <!-- Precio -->
-      <div class="plan-precio">
-        <span class="precio">{{ plan.precio }}</span>
-        <span class="periodo" *ngIf="plan.periodo">{{ plan.periodo }}</span>
-      </div>
-      
-      <!-- Nombre del plan -->
-      <h2 class="plan-nombre">{{ plan.nombre }}</h2>
-      
-      <!-- Descripción -->
-      <p class="plan-descripcion">{{ plan.descripcion }}</p>
-      
-      <!-- Características -->
-      <ul class="plan-caracteristicas">
-        <li *ngFor="let caracteristica of plan.caracteristicas">
-          <span class="check-icon">✓</span>
-          {{ caracteristica }}
-        </li>
-      </ul>
-      
-      <!-- Botón -->
-      <button class="btn-plan" (click)="elegirPlan(plan.nombre)">
-        Elegir plan
-      </button>
     </div>
   </div>
-</div>
+</div> 

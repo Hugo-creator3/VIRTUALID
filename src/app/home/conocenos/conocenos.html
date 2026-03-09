@@ -4,7 +4,7 @@
   <!-- Sección 1: ¿Qué es VIRTUALID? -->
   <section class="section section-1">
     <div class="content-wrapper">
-      <div class="text-content">
+<div class="text-content" appScrollReveal>
         <h1 class="title">¿QUÉ ES VIRTUALID?</h1>
         <p class="description">
           <strong>VIRTUALID</strong> es un software orientado a la transformación digital de los 
@@ -15,7 +15,7 @@
           real.
         </p>
       </div>
-      <div class="image-content">
+<div class="image-content" appScrollReveal>
         <div class="device-mockup">
           <div class="device-screen"></div>
         </div>
@@ -27,7 +27,7 @@
   <!-- Sección 2: ¿Quiénes somos? -->
   <section class="section section-2">
     <div class="content-wrapper">
-      <div class="text-content">
+<div class="text-content" appScrollReveal>
         <h1 class="title">¿QUIÉNES SOMOS?</h1>
         <p class="description">
           Somos una empresa dedicada a la innovación tecnológica, analizamos 
@@ -37,12 +37,9 @@
           problemas específicos.
         </p>
       </div>
-      <div class="image-content">
-        <div class="device-mockup">
-          <div class="device-screen"></div>
-        </div>
+        
       </div>
-    </div>
+    
   </section>
 
   <!-- Sección 3: Ventajas de VIRTUALID -->
@@ -51,8 +48,8 @@
       <div class="text-content">
         <h1 class="title">VENTAJAS DE VIRTUALID</h1>
         <div class="advantages-grid">
-          <div class="advantage-card" *ngFor="let ventaja of ventajas">
-            <div class="advantage-icon">{{ ventaja.icon }}</div>
+        <div class="advantage-card" *ngFor="let ventaja of ventajas" appScrollReveal>            
+        <div class="advantage-icon">{{ ventaja.icon }}</div>
             <h3>{{ ventaja.title }}</h3>
             <p>{{ ventaja.description }}</p>
           </div>

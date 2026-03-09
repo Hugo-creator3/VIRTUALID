@@ -1,1 +1,69 @@
-/* You can add global styles to this file, and also import other style files */
+:root{
+     --blue: #2c3e99;
+  --blue-dark: #1a2570;
+  --blue-mid: #3448b0;
+  --blue-glow: rgba(44, 62, 153, 0.15);
+  --blue-glow-strong: rgba(44, 62, 153, 0.28);
+  --ink: #1a1a2e;
+  --ink-soft: #4a4f6a;
+  --ink-faint: #9094aa;
+  --field-bg: #eceef5;
+  --field-focus: #e2e5f0;
+  --card-bg: #ffffff;
+  --border: #dde0ee;
+  --radius: 16px;
+  --radius-sm: 8px;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-card: 0 8px 40px rgba(44,62,153,0.1), 0 2px 8px rgba(26,26,46,0.06);
+  --shadow-card-hover: 0 16px 56px rgba(44,62,153,0.15), 0 4px 16px rgba(26,26,46,0.08);
+     --blue:       #2c3e99;
+  --blue-dark:  #1a2570;
+  --blue-deep:  #111b55;
+  --blue-glow:  rgba(44, 62, 153, 0.15);
+  --blue-soft:  rgba(44, 62, 153, 0.08);
+  --ink:        #1a1f2e;
+  --ink-mid:    #4a5068;
+  --ink-faint:  #9096aa;
+  --surface:    #f2f3f8;
+  --card-bg:    #ffffff;
+  --input-bg:   #eef0f6;
+  --input-hover:#e5e8f2;
+  --border:     #dde0ee;
+  --radius-lg:  20px;
+  --radius-md:  10px;
+  --radius-sm:  7px;
+  --ease:       cubic-bezier(0.4, 0, 0.2, 1);
+    --primary-color: #4D0F60;
+    --primary-purple: #4a0e4e;
+    --dark-blue: #102a83;
+    --bg-gray: #e8e8ee;
+    --sidebar-width: 60px;
+    --accent: #9c27b0;
+    --glow-blue: rgba(16, 42, 131, 0.35);
+    --glow-purple: rgba(156, 39, 176, 0.3);
+    --primary: #4a0e4e;       /* El morado de tu marca */
+  --secondary: #102a83;     /* El azul de tu marca */
+  --text-main: #1f2937;
+    --warm-blue: #2563eb; /* Azul más cálido */
+--teal: #1db3b3;
+  --teal-dark: #158f8f;
+  --teal-glow: rgba(29, 179, 179, 0.18);
+  --ink: #1a1f2e;
+  --ink-soft: #4a5168;
+  --ink-faint: #8a92a8;
+  --surface: #f4f5f9;
+  --card-bg: #ffffff;
+  --border: #e2e5ef;
+  --red: #f04040;
+  --red-soft: rgba(240, 64, 64, 0.08);
+  --shadow-sm: 0 2px 8px rgba(26,31,46,0.06);
+  --shadow-md: 0 8px 32px rgba(26,31,46,0.1);
+  --shadow-lg: 0 20px 60px rgba(26,31,46,0.14);
+  --radius: 18px;
+  --radius-sm: 10px;
+  --ease-out: cubic-bezier(0.22, 0.68, 0, 1.2);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --text-muted: #6b7280;
+  --bg-light: #f9fafb;
+    /* You can add global styles to this file, and also import other style files */
+}

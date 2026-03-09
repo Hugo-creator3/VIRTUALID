@@ -1,115 +1,180 @@
+/* Importar fuentes y FontAwesome si no lo tienes */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+
+:host {
+  --primary-gradient: linear-gradient(145deg, #2f3f8f, #1e2f73);
+  --input-bg: rgba(255, 255, 255, 0.9);
+  --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .login-container {
   height: 100vh;
-  background: #e6e6e6;
+  background: #f0f2f5;
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  position: relative;
 }
 
+/* --- ANIMACIONES DE FONDO (TECNOLOGÍA) --- */
+.tech-particles .particle {
+  position: absolute;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.5;
+  color: rgb(100, 10, 93);
+  animation: float 20s infinite linear;
+  animation: alternate;
+  z-index: 1;
+}
+
+/* Creamos iconos usando pseudo-elementos para no cargar imágenes */
+.particle.chip::before { content: "\f2db"; font-family: "Font Awessome 6 Free"; font-weight: 900; font-size: 40px; }
+.particle.code::before { content: "\f121"; font-family: "Font Awesome 6 Free"; font-weight: 900; font-size: 30px; }
+.particle.wifi::before { content: "\f1eb"; font-family: "Font Awesome 6 Free"; font-weight: 900; font-size: 35px; }
+.particle.node::before { content: "\f0c9"; font-family: "Font Awesome 6 Free"; font-weight: 900; font-size: 35px; }
+.particle.binary::before { content: "\f121"; font-family: "Font Awesome 6 Free"; font-weight: 900; font-size: 30px; }
+
+.particle:nth-child(1) { top: 10%; left: 10%; animation-duration: 25s; }
+.particle:nth-child(2) { top: 70%; left: 15%; animation-duration: 18s; animation-delay: -2s; }
+.particle:nth-child(3) { top: 20%; right: 10%; animation-duration: 22s; }
+.particle:nth-child(4) { top: 80%; right: 20%; animation-duration: 15s; }
+.particle:nth-child(5) { top: 40%; left: 20%; animation-duration: 20s; }
+
+
+@keyframes float {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(10deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+/* --- CARD DE LOGIN --- */
 .login-card {
-  width: 380px;
-  background: linear-gradient(145deg, #2f3f8f, #1e2f73);
-  padding: 40px;
-  border-radius: 20px;
+  width: 340px; /* Un poco más pequeño y profesional */
+  background: var(--primary-gradient);
+  padding: 35px;
+  border-radius: 24px;
   color: white;
-  box-shadow: 0px 15px 40px rgba(0,0,0,0.3);
+  box-shadow: 0px 20px 50px rgba(30, 47, 115, 0.2);
+  z-index: 10;
+  animation: fadeInUp 0.8s ease-out; /* Animación de entrada */
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .login-card h2 {
   text-align: center;
-  margin-bottom: 30px;
-  font-weight: 700;
+  margin-bottom: 25px;
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+}
+
+.input-group {
+  margin-bottom: 15px;
 }
 
 label {
-  font-size: 14px;
-  margin-top: 10px;
+  font-size: 13px;
+  margin-bottom: 6px;
   display: block;
+  opacity: 0.9;
 }
 
 input {
   width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  margin-top: 5px;
-  margin-bottom: 15px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  background: var(--input-bg);
+  transition: var(--transition-smooth);
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #9ecbff;
+  box-shadow: 0 0 15px rgba(158, 203, 255, 0.4);
+  transform: translateY(-2px);
 }
 
 .forgot {
-  font-size: 12px;
+  font-size: 11px;
+  text-align: right;
   margin-bottom: 20px;
   cursor: pointer;
+  transition: 0.3s;
+  opacity: 0.8;
 }
 
-button {
+.forgot:hover { opacity: 1; color: #9ecbff; }
+
+/* --- BOTONES --- */
+.btn-primary {
   width: 100%;
-  background: #0b2a4a;
+  background: #0b1a33;
   color: white;
   padding: 12px;
-  border-radius: 10px;
+  border-radius: 12px;
   border: none;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
+  transition: var(--transition-smooth);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
+
+.btn-primary:hover {
+  background: #142a4d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.btn-primary:active { transform: translateY(0); }
+
 .continue {
   text-align: center;
-  font-size: 14px;
-  margin: 15px 0;
+  font-size: 12px;
+  margin: 20px 0;
+  opacity: 0.7;
 }
 
 .social-buttons {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 15px;
 }
 
 .social-buttons button {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
   border: none;
-  font-size: 18px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: 0.3s;
-}
-
-.google {
-  background: #ffffff;
-  color: #db4437;
-}
-
-.github {
-  background: #000000;
-  color: white;
-}
-
-.facebook {
-  background: #1877f2;
-  color: white;
+  transition: var(--transition-smooth);
+  background: white;
 }
 
 .social-buttons button:hover {
-  transform: scale(1.1);
+  transform: translateY(-5px) scale(1.1);
 }
+
+/* --- REGISTRO --- */
 .register {
   text-align: center;
-  margin-top: 20px;
-  font-size: 14px;
+  margin-top: 25px;
+  font-size: 13px;
+  opacity: 0.9;
 }
 
 .register span {
   color: #9ecbff;
   cursor: pointer;
   font-weight: 600;
-  transition: 0.3s;
-}
-
-.register span:hover {
-  text-decoration: underline;
+  margin-left: 5px;
 }

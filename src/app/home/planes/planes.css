@@ -1,195 +1,323 @@
+:host {
+  
+}
 
-/* Título principal */
-.planes-title {
-  font-size: 48px;
-  font-weight: bold;
-  color: #1a1a1a;
+.planes-wrapper {
+  background: linear-gradient(180deg, #f8fafc, #eef2ff);
+
+  /* reduce top padding and stop vertical centering */
+  padding: 10px 20px 20px; /* top/right-left/bottom */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* anchor content toward top */
+}
+
+.planes-container {
+  max-width: 1100px;
+  width: 100%;
+}
+
+.planes-header {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 50px;
 }
 
-/* Contenedor de tarjetas */
-.planes-cards {
-  max-width: 1200px;
-  margin: 0 auto;
+.planes-title {
+  font-size: 2rem; /* Reducido de 48px */
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
+}
+
+.planes-subtitle {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+/* Grid */
+.planes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-  padding: 40px;
-  background: rgba(128, 128, 128, 0.3);
-  border-radius: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  align-items: center;
 }
 
-/* Tarjeta de plan */
+/* Tarjeta Base */
 .plan-card {
   background: white;
-  border-radius: 15px;
-  padding: 40px 30px;
+  border: 1px solid #0d226b;
+  border-color: #0d226b;
+  border-radius: 16px;
+  padding: 32px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  height: 100%;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
-  min-height: 480px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
 .plan-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  background: #550c5c3d
+
 }
 
-/* Plan destacado */
+/* Plan Destacado */
 .plan-card.destacado {
-  border: 3px solid #4a0080;
-  transform: scale(1.05);
+  border: 2px solid var(--secondary);
+  background: #fff;
+  transform: scale(1.03);
+  z-index: 2;
 }
 
 .plan-card.destacado:hover {
-  transform: scale(1.05) translateY(-10px);
+  transform: scale(1.03) translateY(-8px);
+    background: #550c5c3d
+
 }
 
-/* Badge de más contratado */
-.badge-destacado {
+/* Badge Premium */
+.badge-premium {
   position: absolute;
-  top: -15px;
-  right: 20px;
-  background: linear-gradient(135deg, #4a0080 0%, #6b0099 100%);
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--secondary);
   color: white;
-  padding: 8px 20px;
+  padding: 4px 16px;
   border-radius: 20px;
-  font-size: 11px;
-  font-weight: bold;
-  letter-spacing: 0.5px;
-  box-shadow: 0 4px 10px rgba(74, 0, 128, 0.3);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 10px rgba(16, 42, 131, 0.3);
 }
 
-/* Precio */
-.plan-precio {
-  margin-bottom: 20px;
-  display: flex;
-  align-items: baseline;
-  gap: 5px;
-}
-
-.precio {
-  font-size: 48px;
-  font-weight: bold;
-  color: #1a1a1a;
-}
-
-.periodo {
-  font-size: 16px;
-  color: #666;
-}
-
-/* Nombre del plan */
+/* Tipografía Interna */
 .plan-nombre {
-  font-size: 24px;
-  font-weight: bold;
-  color: #1a1a1a;
-  margin-bottom: 10px;
-}
-
-/* Descripción */
-.plan-descripcion {
-  font-size: 14px;
-  color: #666;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 15px;
   text-align: center;
-  margin-bottom: 30px;
 }
 
-/* Lista de características */
+.plan-precio {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  margin-bottom: 15px;
+  color: var(--text-main);
+}
+
+.currency { font-size: 1.5rem; font-weight: 600; margin-right: 2px; }
+.precio { font-size: 3rem; font-weight: 800; letter-spacing: -1px; }
+.periodo { color: var(--text-muted); font-size: 1rem; }
+
+.plan-descripcion {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+
+.divider {
+  height: 1px;
+  background: #ffffff;
+  margin-bottom: 25px;
+}
+
+/* Características */
 .plan-caracteristicas {
   list-style: none;
   padding: 0;
-  margin: 0 0 30px 0;
-  width: 100%;
+  margin: 0 0 32px 0;
   flex-grow: 1;
 }
 
 .plan-caracteristicas li {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   margin-bottom: 12px;
-  font-size: 14px;
-  color: #333;
+  font-size: 0.95rem;
+  color: #4b5563;
 }
 
 .check-icon {
-  color: #4a0080;
-  font-weight: bold;
-  font-size: 16px;
+  width: 18px;
+  height: 18px;
+  color: #10b981; /* Verde éxito para los checks, más profesional que el morado aquí */
   flex-shrink: 0;
 }
 
-/* Botón de plan */
+/* Botón Mejorado */
 .btn-plan {
-  background: linear-gradient(135deg, #2c3e99 0%, #1a2570 100%);
-  color: white;
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
   border: none;
-  padding: 15px 60px;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 25px;
+  background-color: #f3f4f6;
+  color: var(--text-main);
+  font-size: 0.95rem;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(44, 62, 153, 0.3);
-  width: 100%;
-  max-width: 200px;
+}
+
+.destacado .btn-plan {
+  background: var(--secondary);
+  color: white;
+  box-shadow: 0 4px 14px rgba(16, 42, 131, 0.3);
 }
 
 .btn-plan:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(44, 62, 153, 0.5);
-  background: linear-gradient(135deg, #3448b0 0%, #1f2d85 100%);
+  background-color: #e5e7eb;
 }
 
-.btn-plan:active {
-  transform: translateY(0);
+.destacado .btn-plan:hover {
+  background-color: #0d226b;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(16, 42, 131, 0.4);
 }
 
 /* Responsive */
-@media (max-width: 968px) {
-  .planes-title {
-    font-size: 36px;
-    margin-bottom: 40px;
-  }
-
-  .planes-cards {
-    grid-template-columns: 1fr;
-    padding: 30px 20px;
-    gap: 40px;
-  }
-
+@media (max-width: 768px) {
   .plan-card.destacado {
     transform: scale(1);
+    margin: 20px 0;
   }
-
   .plan-card.destacado:hover {
-    transform: translateY(-10px);
-  }
-
-  .planes-container {
-    padding: 80px 20px 40px;
+    transform: translateY(-8px);
   }
 }
 
-@media (max-width: 480px) {
-  .planes-title {
-    font-size: 28px;
-  }
+/* Fondo elegante con degradado sutil */
 
-  .plan-card {
-    padding: 30px 20px;
-  }
+/* Animación de aparición */
+.plan-card {
+  border-radius: 20px;
+ 
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  position: relative;
 
-  .precio {
-    font-size: 40px;
-  }
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeUp 0.8s forwards ease;
+}
 
-  .plan-nombre {
-    font-size: 20px;
+
+/* Fade + Slide */
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
+}
+
+/* Hover elegante */
+.plan-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+}
+
+/* Plan destacado */
+.plan-card.destacado {
+  border: 2px solid var(--secondary);
+  transform: scale(1.04);
+}
+
+.plan-card.destacado:hover {
+  transform: scale(1.05) translateY(-10px);
+}
+
+/* Estado ACTIVO al tocar */
+.plan-card.activo {
+  background: linear-gradient(145deg, #eff6ff, #ffffff);
+  box-shadow: 0 20px 40px rgba(37, 99, 235, 0.25);
+  transform: scale(1.05);
+}
+
+/* Badge premium animado */
+.badge-premium {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, var(--secondary), var(--warm-blue));
+  color: white;
+  padding: 6px 18px;
+  border-radius: 30px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+  animation: pulseBadge 2.5s infinite;
+}
+
+@keyframes pulseBadge {
+  0%, 100% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.05); }
+}
+
+/* Precio con animación ligera */
+.plan-precio {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  margin: 20px 0;
+}
+
+.precio {
+  font-size: 3rem;
+  font-weight: 800;
+  transition: transform 0.3s ease;
+}
+
+.plan-card:hover .precio {
+  transform: scale(1.05);
+}
+
+/* Lista */
+.plan-caracteristicas li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  transition: transform 0.2s ease;
+}
+
+.plan-caracteristicas li:hover {
+  transform: translateX(6px);
+}
+
+/* Botón moderno */
+.btn-plan {
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  background: #e5e7eb;
+}
+
+.btn-plan:hover {
+  background: var(--warm-blue);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+}
+
+/* Botón cuando está activo */
+.plan-card.activo .btn-plan {
+  background: var(--warm-blue);
+  color: white;
+}
+
+.plan-card.activo .btn-plan:hover {
+  background: var(--warm-blue-dark);
 }

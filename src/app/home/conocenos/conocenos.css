@@ -9,6 +9,17 @@ body {
     font-family: 'Arial', sans-serif;
     overflow: hidden;
     height: 100vh;
+    background: #ffffff;
+  position: relative;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(74,0,128,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* Navegación */
@@ -51,33 +62,49 @@ body {
 
 /* Contenedor principal con scroll */
 .main-container {
-    height: 100vh;
+    height: 90vh;
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
     padding-top: 50px;
+    background-color: white;
 }
 
 /* Secciones */
 .section {
-    min-height: 100vh;
+    min-height: 10vh;
     display: flex;
     align-items: center;
     justify-content: center;
     scroll-snap-align: start;
     padding: 60px 40px;
+      position: relative;
+  overflow: hidden;
+    transition: transform 0.8s ease, opacity 0.8s ease;
+
 }
 
+.section::before {
+  content: "";
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(168,85,247,0.15), transparent 70%);
+  top: -200px;
+  right: -200px;
+  z-index: 0;
+  animation: slowFloat 15s infinite alternate ease-in-out;
+}
 .section-1 {
-    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+    background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
 }
 
 .section-2 {
-    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
 }
 
 .section-3 {
-    background: linear-gradient(135deg, #fafafa 0%, #ececec 100%);
+    background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
 }
 
 /* Contenedor de contenido */
@@ -102,8 +129,25 @@ body {
     color: #1a1a1a;
     margin-bottom: 25px;
     letter-spacing: -0.5px;
+     position: relative;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+.title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 0%;
+  height: 4px;
+  background: linear-gradient(90deg, #4a0080, #a855f7);
+  transition: width 0.4s ease;
+  border-radius: 4px;
 }
 
+.title:hover::after {
+  width: 100%;
+}
 .description {
     font-size: 16px;
     line-height: 1.8;
@@ -129,7 +173,7 @@ body {
 .device-mockup {
     width: 320px;
     height: 450px;
-    background: linear-gradient(135deg, #2c3e99 0%, #1a2570 100%);
+    background: linear-gradient(135deg, #2c3e99 0%, var(--primary-color) 100%);
     border-radius: 30px;
     padding: 20px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -163,10 +207,11 @@ body {
 .device-screen {
     width: 100%;
     height: 100%;
-    background: #1e2a5a;
     border-radius: 20px;
     position: relative;
     overflow: hidden;
+  background: linear-gradient(160deg, #1e2a5a, #2b3c7a);
+
 }
 
 .device-screen::before {
@@ -187,32 +232,52 @@ body {
     right: 20px;
     width: 0;
     height: 0;
+     background: linear-gradient(
+    120deg,
+    transparent 40%,
+    rgba(255,255,255,0.15),
+    transparent 60%
+  );
     border-left: 30px solid transparent;
     border-right: 0 solid transparent;
     border-bottom: 40px solid rgba(255, 255, 255, 0.15);
-    transform: rotate(-15deg);
+     transform: translateX(-100%);
+  animation: shimmer 4s infinite;
+}
+.btn-comenzar {
+  background: linear-gradient(135deg, #28a745, #1c8f35);
+  color: white;
+  border: none;
+  padding: 16px 55px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Botón comenzar */
-.btn-comenzar {
-    background: linear-gradient(135deg, #28a745 0%, #20a03a 100%);
-    color: white;
-    border: none;
-    padding: 15px 50px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
-    transition: all 0.3s;
-    letter-spacing: 1px;
+.btn-comenzar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: 0.6s;
+}
+
+.btn-comenzar:hover::before {
+  left: 100%;
 }
 
 .btn-comenzar:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.6);
+  transform: translateY(-4px);
+  box-shadow: 0 15px 40px rgba(40, 167, 69, 0.6);
 }
-
 /* Grid de ventajas (Sección 3) */
 .advantages-grid {
     display: grid;
@@ -220,23 +285,35 @@ body {
     gap: 25px;
     margin-top: 30px;
 }
-
 .advantage-card {
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  padding: 35px;
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s ease;
+  transform: translateY(30px);
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards;
 }
+
+.advantage-card:nth-child(1) { animation-delay: 0.2s; }
+.advantage-card:nth-child(2) { animation-delay: 0.4s; }
+.advantage-card:nth-child(3) { animation-delay: 0.6s; }
+.advantage-card:nth-child(4) { animation-delay: 0.8s; }
 
 .advantage-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(74, 0, 128, 0.15);
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 20px 50px rgba(74, 0, 128, 0.2);
+}
+.advantage-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+  transition: transform 0.4s ease;
 }
 
-.advantage-icon {
-    font-size: 48px;
-    margin-bottom: 15px;
+.advantage-card:hover .advantage-icon {
+  transform: rotate(8deg) scale(1.15);
 }
 
 .advantage-card h3 {
@@ -340,4 +417,113 @@ body {
     .section {
         padding: 40px 20px;
     }
+}
+/* Animaciones base */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeRight {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeLeft {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.section-1 .text-content {
+  animation: fadeRight 1s ease forwards;
+}
+
+.section-1 .image-content {
+  animation: fadeLeft 1s ease forwards;
+}
+
+.section-2 .text-content {
+  animation: fadeUp 1s ease forwards;
+}
+
+.section-3 .title {
+  animation: fadeUp 0.8s ease forwards;
+}
+@keyframes floatDevice {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0px); }
+}
+
+.device-mockup {
+  animation: floatDevice 4s ease-in-out infinite;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.device-mockup:hover {
+  transform: scale(1.03);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+}
+.indicator {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: rgba(74, 0, 128, 0.3);
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.indicator:hover {
+  transform: scale(1.4);
+}
+
+.indicator.active {
+  background: linear-gradient(135deg, #4a0080, #a855f7);
+  transform: scale(1.5);
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+}
+/* Estado inicial */
+[appScrollReveal] {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 1s cubic-bezier(.16,.84,.44,1);
+}
+
+/* Cuando aparece */
+.reveal-active {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+@keyframes slowFloat {
+  from { transform: translateY(0px); }
+  to { transform: translateY(80px); }
+}
+@keyframes slowFloat {
+  from { transform: translateY(0px); }
+  to { transform: translateY(80px); }
+}
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+.main-container {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
 }
