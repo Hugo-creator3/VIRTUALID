@@ -15,6 +15,7 @@ import { Dashboard } from './admin/dashboard/dashboard';
 import { Settings } from './admin/settings/settings';
 import { Reportes } from './functions/reportes/reportes';
 import { Nabvar } from './shared/nabvar/nabvar';
+import { Registro } from './home/registro/registro';
 
 
 @Component({
@@ -22,7 +23,7 @@ import { Nabvar } from './shared/nabvar/nabvar';
   standalone: true,
   imports: [
     RouterOutlet, Conocenos, Contactanos, Planes, Login, PanelControl, ListaUsuarios, Asistencias,
-    Configuracion, Tarjetas, Reportes, Notificaciones, Settings, Dashboard, Nabvar, RouterLinkActive,
+    Configuracion, Tarjetas, Reportes, Notificaciones, Settings, Dashboard, Nabvar, RouterLinkActive,Registro,
 
   ],
   templateUrl: './app.html',

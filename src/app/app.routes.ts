@@ -14,6 +14,8 @@ import { Settings } from './admin/settings/settings';
 import { Reportes } from './functions/reportes/reportes';
 import { Nabvar } from './shared/nabvar/nabvar';
 import { NabvarFunctions } from './shared/nabvar-functions/nabvar-functions';
+import { Registro } from './home/registro/registro';
+
 
 
 
@@ -41,6 +43,10 @@ export const routes: Routes = [
     {
     path: 'contactanos',
     component: Contactanos,
+  },
+  {
+    path: 'registro',
+    component: Registro,
   },
   ]
 },

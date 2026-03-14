@@ -1,0 +1,262 @@
+<div class="register-container">
+  <div class="tech-particles">
+    <div class="particle chip"></div>
+    <div class="particle code"></div>
+    <div class="particle wifi"></div>
+    <div class="particle node"></div>
+    <div class="particle binary"></div>
+  </div>
+
+  <div class="register-card">
+    <h2>CREAR CUENTA</h2>
+
+    <form (ngSubmit)="registrar()">
+
+      <!-- Fila 1: Email y Nombre -->
+      <div class="form-row">
+        <div class="input-group">
+          <label>Correo electrónico</label>
+          <div class="input-wrapper">
+            <i class="fas fa-envelope input-icon"></i>
+            <input
+              type="email"
+              placeholder="nombre@gmail.com"
+              [(ngModel)]="form.email"
+              name="email"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Nombre completo</label>
+          <div class="input-wrapper">
+            <i class="fas fa-user input-icon"></i>
+            <input
+              type="text"
+              placeholder="Juan García"
+              [(ngModel)]="form.nombre"
+              name="nombre"
+              required
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Fila 2: Contraseña y Repetir -->
+      <div class="form-row">
+        <div class="input-group">
+          <label>Contraseña</label>
+          <div class="input-wrapper">
+            <i class="fas fa-lock input-icon"></i>
+            <input
+              [type]="showPass ? 'text' : 'password'"
+              placeholder="••••••••"
+              [(ngModel)]="form.contrasena"
+              name="contrasena"
+              required
+            />
+            <i class="fas input-toggle"
+               [class.fa-eye]="!showPass"
+               [class.fa-eye-slash]="showPass"
+               (click)="showPass = !showPass"></i>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Repetir contraseña</label>
+          <div class="input-wrapper">
+            <i class="fas fa-lock input-icon"></i>
+            <input
+              [type]="showPass2 ? 'text' : 'password'"
+              placeholder="••••••••"
+              [(ngModel)]="form.repetirContrasena"
+              name="repetirContrasena"
+              required
+            />
+            <i class="fas input-toggle"
+               [class.fa-eye]="!showPass2"
+               [class.fa-eye-slash]="showPass2"
+               (click)="showPass2 = !showPass2"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fila 3: Cargo y Teléfono -->
+      <div class="form-row">
+        <div class="input-group">
+          <label>Cargo</label>
+          <div class="input-wrapper">
+            <i class="fas fa-briefcase input-icon"></i>
+            <input
+              type="text"
+              placeholder="Desarrollador"
+              [(ngModel)]="form.cargo"
+              name="cargo"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Teléfono</label>
+          <div class="input-wrapper">
+            <i class="fas fa-phone input-icon"></i>
+            <input
+              type="tel"
+              placeholder="+52 55 1234 5678"
+              [(ngModel)]="form.telefono"
+              name="telefono"
+              required
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Fila 4: Nombre y Código de empresa -->
+      <div class="form-row">
+        <div class="input-group">
+          <label>Nombre de empresa</label>
+          <div class="input-wrapper">
+            <i class="fas fa-building input-icon"></i>
+            <input
+              type="text"
+              placeholder="Acme Corp"
+              [(ngModel)]="form.nombreEmpresa"
+              name="nombreEmpresa"
+            />
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Código de empresa</label>
+          <div class="input-wrapper">
+            <i class="fas fa-hashtag input-icon"></i>
+            <input
+              type="text"
+              placeholder="EMP-0001"
+              [(ngModel)]="form.codigoEmpresa"
+              name="codigoEmpresa"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PANEL COLAPSABLE: Registrar empresa o proyecto ── -->
+      <div class="collapsible-section">
+
+        <button type="button" class="collapsible-trigger" (click)="togglePanel()">
+          <div class="trigger-left">
+            <div class="trigger-icon-wrap">
+              <i class="fas fa-plus-circle"></i>
+            </div>
+            <span>Registrar empresa o proyecto</span>
+          </div>
+          <i class="fas fa-chevron-down trigger-chevron" [class.rotated]="panelOpen"></i>
+        </button>
+
+        <div class="collapsible-body" [class.open]="panelOpen">
+          <div class="panel-inner">
+
+            <!-- Selector tipo -->
+            <div class="type-selector">
+              <button type="button"
+                class="type-btn"
+                [class.active]="panelTipo === 'empresa'"
+                (click)="panelTipo = 'empresa'">
+                <i class="fas fa-building"></i> Empresa
+              </button>
+              <button type="button"
+                class="type-btn"
+                [class.active]="panelTipo === 'proyecto'"
+                (click)="panelTipo = 'proyecto'">
+                <i class="fas fa-diagram-project"></i> Proyecto
+              </button>
+            </div>
+
+            <!-- Campos empresa -->
+            <div *ngIf="panelTipo === 'empresa'" class="panel-fields">
+              <div class="form-row panel-row">
+                <div class="input-group">
+                  <label>Nombre de Empresa</label>
+                  <div class="input-wrapper">
+                    <i class="fas fa-building input-icon"></i>
+                    <input type="text" placeholder="Acme Corp"
+                      [(ngModel)]="empresa.nombre" name="VIRTUAL ID" />
+                  </div>
+                </div>
+                <div class="input-group">
+                  <label>Razón Social</label>
+                  <div class="input-wrapper">
+                    <i class="fas fa-id-card input-icon"></i>
+                    <input type="text" placeholder="ACM010101XXX"
+                      [(ngModel)]="empresa.razon_social" name="VIRTUALID FENSET" />
+                  </div>
+                </div>
+              </div>
+              <div class="form-row panel-row">
+                <div class="input-group">
+                  <label>RFC / ID Fiscal</label>
+                  <div class="input-wrapper">
+                    <i class="fas fa-industry input-icon"></i>
+                    <input type="text" placeholder="ACM010101XXX"
+                      [(ngModel)]="empresa.rfc" name="empSector" />
+                  </div>
+                </div>
+                <div class="input-group">
+                  <label>Tipo de institución</label>
+                  <div class="input-wrapper">
+                    <i class="fas fa-globe input-icon"></i>
+                    <input type="text" placeholder="Tecnología"
+                      [(ngModel)]="empresa.tipoDeInstitucion" name="empWeb" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Campos proyecto -->
+            <div *ngIf="panelTipo === 'proyecto'" class="panel-fields">
+              <div class="form-row panel-row">
+                <div class="input-group">
+                  <label>Nombre del proyecto</label>
+                  <div class="input-wrapper">
+                    <i class="fas fa-folder-open input-icon"></i>
+                    <input type="text" placeholder="Mi Proyecto Alpha"
+                      [(ngModel)]="proyecto.nombre" name="projNombre" />
+                  </div>
+                </div>
+              
+                <div class="input-group">
+                  <label>Descripción breve</label>
+                  <div class="input-wrapper">
+                    <i class="fas fa-align-left input-icon"></i>
+                    <input type="text" placeholder="Resumen del proyecto"
+                      [(ngModel)]="proyecto.descripcion" name="projDesc" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button type="button" class="btn-panel-save" (click)="guardarPanel()">
+              <i class="fas fa-check"></i>
+              Guardar {{ panelTipo === 'empresa' ? 'empresa' : 'proyecto' }}
+            </button>
+
+          </div>
+        </div>
+      </div>
+      <!-- ── FIN PANEL ── -->
+
+      <button type="submit" class="btn-primary">
+        <span>Crear cuenta</span>
+        <i class="fas fa-arrow-right btn-icon"></i>
+      </button>
+
+    </form>
+
+    <p class="login-link">
+      ¿Ya tienes cuenta?
+      <span (click)="irLogin()">Inicia sesión</span>
+    </p>
+  </div>
+</div>
