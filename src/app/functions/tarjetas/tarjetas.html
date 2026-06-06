@@ -1,63 +1,259 @@
+<!-- tarjetas.html -->
 <div class="main-container">
 
+  <!-- HEADER -->
+  <div class="content-wrapper">
+    <div class="header-section">
+      <h1>Diseño de tarjeta</h1>
+      <p class="header-sub">Personaliza la tarjeta de acceso de tu institución con logo, colores y datos institucionales.</p>
+    </div>
+  </div>
 
-  <h1 class="page-title">Diseño de tarjeta</h1>
+  <!-- MAIN GRID -->
+  <div class="content-wrapper content-wrapper--grid">
+    <div class="design-grid">
 
-  <div class="content-grid">
-    <section class="card-section left-panel">
-      <h2>Cargar logo institucional</h2>
-      
-      <div class="upload-zone">
-        <div class="upload-icon">📁</div>
-        <p>Arrastra el logo o haz clic para seleccionar</p>
-        <span class="file-info">PNG, JPG (máx... 5MB)</span>
-      </div>
+      <!-- ══ PANEL IZQUIERDO ══ -->
+      <aside class="panel left-panel">
 
-      <div class="ia-alert">
-        <strong>IA Activa:</strong> Al cargar el logo, se extraerá automáticamente la paleta de colores
-      </div>
-
-      <div class="palette-section">
-        <h3>Paleta extraída:</h3>
-        <div class="colors">
-          <div class="color-circle" style="background-color: #6a0d6a;"></div>
-          <div class="color-circle" style="background-color: #0000ff;"></div>
-          <div class="color-circle" style="background-color: #000000;"></div>
-          <div class="color-circle" style="background-color: #8c7e7e;"></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="card-section right-panel">
-      <div class="settings-icon">⚙️</div>
-      
-      <div class="id-card-preview">
-        <div class="card-header">
-          <span class="institution-name">Institución</span>
-        </div>
-        
-        <div class="card-body">
-          <div class="profile-pic">
-            <img src="https://via.placeholder.com/80" alt="Profile">
+        <!-- Upload -->
+        <div class="panel-block">
+          <div class="block-header">
+            <span class="block-icon">◈</span>
+            <div>
+              <h2 class="block-title">Logo Institucional</h2>
+              <p class="block-sub">PNG o JPG — máximo 5 MB</p>
+            </div>
           </div>
-          <div class="user-info">
-            <h4 class="user-name">Elizabeth Vega</h4>
-            <p class="user-id">ID: 204I30423</p>
-            <p class="user-role">Estudiante</p>
+
+          <div class="upload-zone" (click)="fileInput.click()">
+            <input
+              #fileInput
+              type="file"
+              accept="image/png, image/jpeg"
+              style="display:none"
+              (change)="cargarLogo($event)"
+            >
+            <div class="upload-glow"></div>
+            <div class="upload-icon-wrap">
+              <span class="upload-icon">⬆</span>
+            </div>
+            <p class="upload-text">Arrastra el logo o <span class="upload-link">haz clic aquí</span></p>
+            <span class="upload-hint">La IA extrae tu paleta automáticamente</span>
+          </div>
+
+          <div class="ia-badge">
+            <span class="ia-dot"></span>
+            <span><strong>IA Activa:</strong> Al cargar el logo se extraerán los colores de tu marca.</span>
           </div>
         </div>
-        
-        <div class="qr-code">
-          <div class="qr-icon">🔳</div>
+
+        <!-- Paleta -->
+        <div class="panel-block">
+          <div class="block-header">
+            <span class="block-icon">◉</span>
+            <div>
+              <h2 class="block-title">Paleta de Colores</h2>
+              <p class="block-sub">Extraída automáticamente del logo</p>
+            </div>
+          </div>
+
+          <div class="palette-grid" *ngIf="colores.length; else emptyPalette">
+            <div
+              *ngFor="let color of colores; let i = index"
+              class="palette-swatch"
+              [style.background]="color"
+              [title]="color"
+            >
+              <span class="swatch-index">{{ i + 1 }}</span>
+            </div>
+          </div>
+
+          <ng-template #emptyPalette>
+            <div class="palette-empty">
+              <span>Sin colores aún — carga un logo para comenzar</span>
+            </div>
+          </ng-template>
         </div>
-      </div>
 
-      <div class="form-group">
-        <label>Nombre de Institución:</label>
-        <input type="text" class="input-field">
-      </div>
+        <!-- Datos de la institución -->
+        <div class="panel-block">
+          <div class="block-header">
+            <span class="block-icon">⊞</span>
+            <div>
+              <h2 class="block-title">Datos Institucionales</h2>
+              <p class="block-sub">Se mostrarán en la tarjeta</p>
+            </div>
+          </div>
 
-      <button class="btn-save">Guardar Plantilla</button>
-    </section>
+          <div class="field-group">
+            <label class="field-label">Nombre de la institución</label>
+            <input
+              type="text"
+              class="field-input"
+              [(ngModel)]="nombreInstitucion"
+              placeholder="Ej. Universidad Nacional..."
+            />
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">Subtítulo / Área</label>
+            <input
+              type="text"
+              class="field-input"
+              placeholder="Ej. Departamento de Sistemas"
+            />
+          </div>
+
+            <div class="field-group">
+            <label class="field-label">Subtítulo / Área</label>
+            <input
+              type="text"
+              class="field-input"
+              placeholder="Ej. Departamento de Sistemas"
+            />
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">Sitio web (opcional)</label>
+            <input
+              type="text"
+              class="field-input"
+              placeholder="www.miinstitucion.edu"
+            />
+          </div>
+
+          <button class="btn-save" [class.btn-save--saved]="saveStatus" (click)="guardar()">
+            <span class="btn-icon" *ngIf="saveStatus">✓</span>
+            {{ saveStatus ? 'Cambios guardados' : 'Guardar Plantilla' }}
+          </button>
+        </div>
+
+      </aside>
+
+      <!-- ══ PANEL DERECHO ══ -->
+      <section class="panel right-panel">
+
+        <!-- Selector de layout -->
+        <div class="panel-block">
+          <div class="block-header">
+            <span class="block-icon">⌬</span>
+            <div>
+              <h2 class="block-title">Vista Previa de Tarjeta</h2>
+              <p class="block-sub">Selecciona un estilo de layout</p>
+            </div>
+            <button class="settings-btn">⚙</button>
+          </div>
+
+          <!-- Tabs de estilo -->
+          <div class="style-tabs">
+            <button class="style-tab active" data-style="horizontal">Horizontal</button>
+            <button class="style-tab" data-style="vertical">Vertical</button>
+            <button class="style-tab" data-style="minimalista">Minimalista</button>
+          </div>
+        </div>
+
+        <!-- TARJETA PREVIEW HORIZONTAL (principal) -->
+        <div class="panel-block preview-block">
+          <div class="preview-label">Layout 1 — Horizontal</div>
+          <div class="card-stage">
+            <div
+              class="id-card-preview card-horizontal"
+              [style.background]="gradiente || 'linear-gradient(135deg, #0d2070, #1a3aad)'"
+            >
+              <div class="card-shimmer"></div>
+
+              <div class="card-top-bar">
+                <div class="card-logo-area">
+                  <div class="card-logo-placeholder" *ngIf="!logoPreview">⬡</div>
+                  <img *ngIf="logoPreview" [src]="logoPreview" class="card-logo-img" alt="Logo">
+                </div>
+                <span class="card-inst-name">
+                  {{ (tarjeta$ | async)?.nombre_institucion || nombreInstitucion || 'Institución' }}
+                </span>
+                <span class="card-chip">✦</span>
+              </div>
+
+              <div class="card-body-row">
+                <div class="card-photo">
+                  <img src="https://via.placeholder.com/80" alt="Profile">
+                </div>
+                <div class="card-info">
+                  <span class="card-name">Nombre estudiante</span>
+                  <span class="card-id">ID · 204I30423</span>
+                  <span class="card-role">Estudiante</span>
+                </div>
+                <div class="card-qr">
+                  <div class="qr-wrap">🔳</div>
+                  <span class="qr-label">Escanear</span>
+                </div>
+              </div>
+
+              <!-- Color bar inferior con paleta -->
+              <div class="card-palette-bar">
+                <div
+                  *ngFor="let color of colores"
+                  class="bar-swatch"
+                  [style.background]="color"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TARJETA VERTICAL (simulación) -->
+        <div class="panel-block preview-block">
+          <div class="preview-label">Layout 2 — Vertical Compacto</div>
+          <div class="card-stage">
+            <div
+              class="id-card-preview card-vertical"
+              [style.background]="gradiente || 'linear-gradient(160deg, #0d2070, #721c8b)'"
+            >
+              <div class="card-shimmer"></div>
+              <div class="card-vert-top">
+                <span class="card-badge-tag">{{ nombreInstitucion || 'Institución' }}</span>
+              </div>
+              <div class="card-vert-photo">
+                <img src="https://via.placeholder.com/80" alt="Profile">
+                <div class="card-vert-halo"></div>
+              </div>
+              <div class="card-vert-info">
+                <span class="card-name">Elizabeth Vega</span>
+                <span class="card-id">204I30423</span>
+                <span class="card-role-badge">Estudiante</span>
+              </div>
+              <div class="card-vert-bottom">
+                <div class="qr-mini">🔳</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TARJETA MINIMALISTA (simulación) -->
+        <div class="panel-block preview-block">
+          <div class="preview-label">Layout 3 — Minimalista</div>
+          <div class="card-stage">
+            <div
+              class="id-card-preview card-minimal"
+              [style.border-color]="colores[0] || '#1a3aad'"
+            >
+              <div class="card-min-stripe" [style.background]="colores[0] || '#1a3aad'"></div>
+              <div class="card-min-body">
+                <div class="card-min-left">
+                  <img src="https://via.placeholder.com/80" alt="Profile">
+                </div>
+                <div class="card-min-right">
+                  <span class="card-min-inst">{{ nombreInstitucion || 'Institución' }}</span>
+                  <span class="card-name card-name--dark">Elizabeth Vega</span>
+                  <span class="card-id card-id--dark">204I30423 · Estudiante</span>
+                </div>
+                <div class="card-min-qr">🔳</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
   </div>
 </div>

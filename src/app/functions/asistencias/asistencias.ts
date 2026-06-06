@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../services/auth.service';
+import { AsistenciasService } from '../../../services/asistencias.service';
+
 
 interface Asistencia {
   id: number;
   fechaHora: string;
   usuario: string;
   ubicacion: string;
-  estado: 'Aceptado' | 'Denegado';
+  estado: 'Aceptado' | 'Denegado' | 'Retraso';
+  minutosRetraso: number;
 }
 
 @Component({
@@ -29,124 +33,30 @@ export class Asistencias implements OnInit {
     this.updatePaginatedAsistencias();
   }
 
-  loadAsistencias() {
-    this.asistencias = [
-      {
-        id: 1,
-        fechaHora: '7:00 a.m',
-        usuario: 'Leslie Maya',
-        ubicacion: 'Campus(A2)',
-        estado: 'Aceptado'
-      },
-      {
-        id: 2,
-        fechaHora: '7:00 a.m',
-        usuario: 'Nemo Zola',
-        ubicacion: 'Campus(A2)',
-        estado: 'Aceptado'
-      },
-      {
-        id: 3,
-        fechaHora: '7:00 a.m',
-        usuario: 'Alex Petra',
-        ubicacion: 'Campus(A2)',
-        estado: 'Aceptado'
-      },
-      {
-        id: 4,
-        fechaHora: '7:00 a.m',
-        usuario: 'Mateo Cuna',
-        ubicacion: 'Campus(A2)',
-        estado: 'Denegado'
-      },
-      {
-        id: 5,
-        fechaHora: '7:00 a.m',
-        usuario: 'Antonio Mérida',
-        ubicacion: 'Campus(A2)',
-        estado: 'Aceptado'
-      },
-      {
-        id: 6,
-        fechaHora: '7:00 a.m',
-        usuario: 'André Gutiérrez',
-        ubicacion: 'Campus(A2)',
-        estado: 'Denegado'
-      },
-      {
-        id: 7,
-        fechaHora: '7:00 a.m',
-        usuario: 'Jorge Ferrera',
-        ubicacion: 'Campus(A2)',
-        estado: 'Aceptado'
-      },
-      {
-        id: 8,
-        fechaHora: '7:00 a.m',
-        usuario: 'Josué Domínguez',
-        ubicacion: 'Campus(A2)',
-        estado: 'Aceptado'
-      },
-      {
-        id: 9,
-        fechaHora: '8:00 a.m',
-        usuario: 'Maria Garcia',
-        ubicacion: 'Campus(B1)',
-        estado: 'Aceptado'
-      },
-      {
-        id: 10,
-        fechaHora: '8:00 a.m',
-        usuario: 'Carlos Mendez',
-        ubicacion: 'Campus(B1)',
-        estado: 'Aceptado'
-      },
-      {
-        id: 11,
-        fechaHora: '8:15 a.m',
-        usuario: 'Ana Lopez',
-        ubicacion: 'Campus(A2)',
-        estado: 'Denegado'
-      },
-      {
-        id: 12,
-        fechaHora: '8:30 a.m',
-        usuario: 'Pedro Santos',
-        ubicacion: 'Campus(C3)',
-        estado: 'Aceptado'
-      },
-      {
-        id: 13,
-        fechaHora: '8:45 a.m',
-        usuario: 'Laura Martinez',
-        ubicacion: 'Campus(A2)',
-        estado: 'Aceptado'
-      },
-      {
-        id: 14,
-        fechaHora: '9:00 a.m',
-        usuario: 'Diego Rodriguez',
-        ubicacion: 'Campus(B1)',
-        estado: 'Denegado'
-      },
-      {
-        id: 15,
-        fechaHora: '9:15 a.m',
-        usuario: 'Sofia Hernandez',
-        ubicacion: 'Campus(A2)',
-        estado: 'Aceptado'
-      },
-      {
-        id: 16,
-        fechaHora: '9:30 a.m',
-        usuario: 'Miguel Torres',
-        ubicacion: 'Campus(C3)',
-        estado: 'Aceptado'
-      }
-    ];
+  constructor(private asistenciasService: AsistenciasService) {}
+
+loadAsistencias() {
+  this.asistenciasService.getAsistencias().subscribe(data => {
+
+    this.asistencias = data.map(a => ({
+      id: Number(a.id_asistencia),
+      fechaHora: new Date(a.fecha_hora).toLocaleString(),
+      usuario: `${a.usuario.nombre} ${a.usuario.apellidos}`,
+      ubicacion: `${a.latitud}, ${a.longitud}`,
+      estado:
+      a.estado === 'ACEPTADO'
+      ? 'Aceptado'
+      : a.estado === 'RETRASO'
+      ? 'Retraso'
+      : 'Denegado',
+
+minutosRetraso: a.minutos_retraso    }));
 
     this.totalPages = Math.ceil(this.asistencias.length / this.itemsPerPage);
-  }
+    this.updatePaginatedAsistencias();
+
+  });
+}
 
   updatePaginatedAsistencias() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;

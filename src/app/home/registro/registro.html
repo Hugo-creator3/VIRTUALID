@@ -14,102 +14,92 @@
 
       <!-- Fila 1: Email y Nombre -->
       <div class="form-row">
-        <div class="input-group">
+        <div class="input-group" [class.has-error]="hasError('email')">
           <label>Correo electrónico</label>
           <div class="input-wrapper">
             <i class="fas fa-envelope input-icon"></i>
-            <input
-              type="email"
-              placeholder="nombre@gmail.com"
-              [(ngModel)]="form.email"
-              name="email"
-              required
-            />
+            <input type="email" placeholder="nombre@gmail.com"
+              [(ngModel)]="form.email" name="email"
+              (blur)="markTouched('email')" (input)="markTouched('email')" />
           </div>
+          <span class="error-msg" *ngIf="hasError('email')">⚠ {{ getError('email') }}</span>
         </div>
 
-        <div class="input-group">
+        <div class="input-group" [class.has-error]="hasError('nombre')">
           <label>Nombre completo</label>
           <div class="input-wrapper">
             <i class="fas fa-user input-icon"></i>
-            <input
-              type="text"
-              placeholder="Juan García"
-              [(ngModel)]="form.nombre"
-              name="nombre"
-              required
-            />
+            <input type="text" placeholder="Juan García"
+              [(ngModel)]="form.nombre" name="nombre"
+              (blur)="markTouched('nombre')" (input)="markTouched('nombre')" />
           </div>
+          <span class="error-msg" *ngIf="hasError('nombre')">⚠ {{ getError('nombre') }}</span>
         </div>
       </div>
 
       <!-- Fila 2: Contraseña y Repetir -->
       <div class="form-row">
-        <div class="input-group">
+        <div class="input-group" [class.has-error]="hasError('contrasena')">
           <label>Contraseña</label>
           <div class="input-wrapper">
             <i class="fas fa-lock input-icon"></i>
-            <input
-              [type]="showPass ? 'text' : 'password'"
-              placeholder="••••••••"
-              [(ngModel)]="form.contrasena"
-              name="contrasena"
-              required
-            />
+            <input [type]="showPass ? 'text' : 'password'" placeholder="••••••••"
+              [(ngModel)]="form.contrasena" name="contrasena"
+              (blur)="markTouched('contrasena')" (input)="markTouched('contrasena')" />
             <i class="fas input-toggle"
-               [class.fa-eye]="!showPass"
-               [class.fa-eye-slash]="showPass"
+               [class.fa-eye]="!showPass" [class.fa-eye-slash]="showPass"
                (click)="showPass = !showPass"></i>
           </div>
+          <!-- Indicador de fortaleza -->
+          <div class="strength-wrap" *ngIf="form.contrasena.length > 0">
+            <div class="strength-bars">
+              <span class="bar" [class.active]="passwordStrength >= 1" [ngClass]="passwordStrength >= 1 ? passwordStrengthClass : ''"></span>
+              <span class="bar" [class.active]="passwordStrength >= 2" [ngClass]="passwordStrength >= 2 ? passwordStrengthClass : ''"></span>
+              <span class="bar" [class.active]="passwordStrength >= 3" [ngClass]="passwordStrength >= 3 ? passwordStrengthClass : ''"></span>
+              <span class="bar" [class.active]="passwordStrength >= 4" [ngClass]="passwordStrength >= 4 ? passwordStrengthClass : ''"></span>
+            </div>
+            <span class="strength-label" [ngClass]="passwordStrengthClass">{{ passwordStrengthLabel }}</span>
+          </div>
+          <span class="error-msg" *ngIf="hasError('contrasena')">⚠ {{ getError('contrasena') }}</span>
         </div>
 
-        <div class="input-group">
+        <div class="input-group" [class.has-error]="hasError('repetirContrasena')">
           <label>Repetir contraseña</label>
           <div class="input-wrapper">
             <i class="fas fa-lock input-icon"></i>
-            <input
-              [type]="showPass2 ? 'text' : 'password'"
-              placeholder="••••••••"
-              [(ngModel)]="form.repetirContrasena"
-              name="repetirContrasena"
-              required
-            />
+            <input [type]="showPass2 ? 'text' : 'password'" placeholder="••••••••"
+              [(ngModel)]="form.repetirContrasena" name="repetirContrasena"
+              (blur)="markTouched('repetirContrasena')" (input)="markTouched('repetirContrasena')" />
             <i class="fas input-toggle"
-               [class.fa-eye]="!showPass2"
-               [class.fa-eye-slash]="showPass2"
+               [class.fa-eye]="!showPass2" [class.fa-eye-slash]="showPass2"
                (click)="showPass2 = !showPass2"></i>
           </div>
+          <span class="error-msg" *ngIf="hasError('repetirContrasena')">⚠ {{ getError('repetirContrasena') }}</span>
         </div>
       </div>
 
       <!-- Fila 3: Cargo y Teléfono -->
       <div class="form-row">
-        <div class="input-group">
+        <div class="input-group" [class.has-error]="hasError('cargo')">
           <label>Cargo</label>
           <div class="input-wrapper">
             <i class="fas fa-briefcase input-icon"></i>
-            <input
-              type="text"
-              placeholder="Desarrollador"
-              [(ngModel)]="form.cargo"
-              name="cargo"
-              required
-            />
+            <input type="text" placeholder="Desarrollador"
+              [(ngModel)]="form.cargo" name="cargo"
+              (blur)="markTouched('cargo')" (input)="markTouched('cargo')" />
           </div>
+          <span class="error-msg" *ngIf="hasError('cargo')">⚠ {{ getError('cargo') }}</span>
         </div>
 
-        <div class="input-group">
+        <div class="input-group" [class.has-error]="hasError('telefono')">
           <label>Teléfono</label>
           <div class="input-wrapper">
             <i class="fas fa-phone input-icon"></i>
-            <input
-              type="tel"
-              placeholder="+52 55 1234 5678"
-              [(ngModel)]="form.telefono"
-              name="telefono"
-              required
-            />
+            <input type="tel" placeholder="+52 55 1234 5678"
+              [(ngModel)]="form.telefono" name="telefono"
+              (blur)="markTouched('telefono')" (input)="markTouched('telefono')" />
           </div>
+          <span class="error-msg" *ngIf="hasError('telefono')">⚠ {{ getError('telefono') }}</span>
         </div>
       </div>
 
@@ -119,37 +109,28 @@
           <label>Nombre de empresa</label>
           <div class="input-wrapper">
             <i class="fas fa-building input-icon"></i>
-            <input
-              type="text"
-              placeholder="Acme Corp"
-              [(ngModel)]="form.nombreEmpresa"
-              name="nombreEmpresa"
-            />
+            <input type="text" placeholder="Acme Corp"
+              [(ngModel)]="form.nombreEmpresa" name="nombreEmpresa" />
           </div>
         </div>
 
-        <div class="input-group">
+        <div class="input-group" [class.has-error]="hasError('codigoEmpresa')">
           <label>Código de empresa</label>
           <div class="input-wrapper">
             <i class="fas fa-hashtag input-icon"></i>
-            <input
-              type="text"
-              placeholder="EMP-0001"
-              [(ngModel)]="form.codigoEmpresa"
-              name="codigoEmpresa"
-            />
+            <input type="text" placeholder="EMP-0001"
+              [(ngModel)]="form.codigoEmpresa" name="codigoEmpresa"
+              (blur)="markTouched('codigoEmpresa')" (input)="markTouched('codigoEmpresa')" />
           </div>
+          <span class="error-msg" *ngIf="hasError('codigoEmpresa')">⚠ {{ getError('codigoEmpresa') }}</span>
         </div>
       </div>
 
-      <!-- ── PANEL COLAPSABLE: Registrar empresa o proyecto ── -->
+      <!-- ── PANEL COLAPSABLE ── -->
       <div class="collapsible-section">
-
         <button type="button" class="collapsible-trigger" (click)="togglePanel()">
           <div class="trigger-left">
-            <div class="trigger-icon-wrap">
-              <i class="fas fa-plus-circle"></i>
-            </div>
+            <div class="trigger-icon-wrap"><i class="fas fa-plus-circle"></i></div>
             <span>Registrar empresa o proyecto</span>
           </div>
           <i class="fas fa-chevron-down trigger-chevron" [class.rotated]="panelOpen"></i>
@@ -158,82 +139,62 @@
         <div class="collapsible-body" [class.open]="panelOpen">
           <div class="panel-inner">
 
-            <!-- Selector tipo -->
             <div class="type-selector">
-              <button type="button"
-                class="type-btn"
-                [class.active]="panelTipo === 'empresa'"
-                (click)="panelTipo = 'empresa'">
+              <button type="button" class="type-btn" [class.active]="panelTipo === 'empresa'" (click)="panelTipo = 'empresa'">
                 <i class="fas fa-building"></i> Empresa
               </button>
-              <button type="button"
-                class="type-btn"
-                [class.active]="panelTipo === 'proyecto'"
-                (click)="panelTipo = 'proyecto'">
-                <i class="fas fa-diagram-project"></i> Proyecto
-              </button>
+        
             </div>
 
             <!-- Campos empresa -->
             <div *ngIf="panelTipo === 'empresa'" class="panel-fields">
               <div class="form-row panel-row">
-                <div class="input-group">
+                <div class="input-group" [class.has-error]="hasError('nombre', 'empresa')">
                   <label>Nombre de Empresa</label>
                   <div class="input-wrapper">
                     <i class="fas fa-building input-icon"></i>
                     <input type="text" placeholder="Acme Corp"
-                      [(ngModel)]="empresa.nombre" name="VIRTUAL ID" />
+                      [(ngModel)]="empresa.nombre" name="empNombre"
+                      (blur)="markTouched('nombre','empresa')" (input)="markTouched('nombre','empresa')" />
                   </div>
+                  <span class="error-msg" *ngIf="hasError('nombre','empresa')">⚠ {{ getError('nombre','empresa') }}</span>
                 </div>
-                <div class="input-group">
+                <div class="input-group" [class.has-error]="hasError('razon_social','empresa')">
                   <label>Razón Social</label>
                   <div class="input-wrapper">
                     <i class="fas fa-id-card input-icon"></i>
-                    <input type="text" placeholder="ACM010101XXX"
-                      [(ngModel)]="empresa.razon_social" name="VIRTUALID FENSET" />
+                    <input type="text" placeholder="Acme Corp S.A. de C.V."
+                      [(ngModel)]="empresa.razon_social" name="empRazon"
+                      (blur)="markTouched('razon_social','empresa')" (input)="markTouched('razon_social','empresa')" />
                   </div>
+                  <span class="error-msg" *ngIf="hasError('razon_social','empresa')">⚠ {{ getError('razon_social','empresa') }}</span>
                 </div>
               </div>
               <div class="form-row panel-row">
-                <div class="input-group">
+                <div class="input-group" [class.has-error]="hasError('rfc','empresa')">
                   <label>RFC / ID Fiscal</label>
                   <div class="input-wrapper">
                     <i class="fas fa-industry input-icon"></i>
                     <input type="text" placeholder="ACM010101XXX"
-                      [(ngModel)]="empresa.rfc" name="empSector" />
+                      [(ngModel)]="empresa.rfc" name="empRfc"
+                      (blur)="markTouched('rfc','empresa')" (input)="markTouched('rfc','empresa')" />
                   </div>
+                  <span class="error-msg" *ngIf="hasError('rfc','empresa')">⚠ {{ getError('rfc','empresa') }}</span>
                 </div>
-                <div class="input-group">
+                <div class="input-group" [class.has-error]="hasError('tipoDeInstitucion','empresa')">
                   <label>Tipo de institución</label>
                   <div class="input-wrapper">
                     <i class="fas fa-globe input-icon"></i>
                     <input type="text" placeholder="Tecnología"
-                      [(ngModel)]="empresa.tipoDeInstitucion" name="empWeb" />
+                      [(ngModel)]="empresa.tipoDeInstitucion" name="empTipo"
+                      (blur)="markTouched('tipoDeInstitucion','empresa')" (input)="markTouched('tipoDeInstitucion','empresa')" />
                   </div>
+                  <span class="error-msg" *ngIf="hasError('tipoDeInstitucion','empresa')">⚠ {{ getError('tipoDeInstitucion','empresa') }}</span>
                 </div>
               </div>
             </div>
 
-            <!-- Campos proyecto -->
-            <div *ngIf="panelTipo === 'proyecto'" class="panel-fields">
-              <div class="form-row panel-row">
-                <div class="input-group">
-                  <label>Nombre del proyecto</label>
-                  <div class="input-wrapper">
-                    <i class="fas fa-folder-open input-icon"></i>
-                    <input type="text" placeholder="Mi Proyecto Alpha"
-                      [(ngModel)]="proyecto.nombre" name="projNombre" />
-                  </div>
-                </div>
-              
-                <div class="input-group">
-                  <label>Descripción breve</label>
-                  <div class="input-wrapper">
-                    <i class="fas fa-align-left input-icon"></i>
-                    <input type="text" placeholder="Resumen del proyecto"
-                      [(ngModel)]="proyecto.descripcion" name="projDesc" />
-                  </div>
-                </div>
+            
               </div>
             </div>
 
@@ -242,21 +203,76 @@
               Guardar {{ panelTipo === 'empresa' ? 'empresa' : 'proyecto' }}
             </button>
 
-          </div>
-        </div>
       </div>
-      <!-- ── FIN PANEL ── -->
 
-      <button type="submit" class="btn-primary">
-        <span>Crear cuenta</span>
-        <i class="fas fa-arrow-right btn-icon"></i>
+      <p class="server-error" *ngIf="serverError">⚠ {{ serverError }}</p>
+
+      <button type="submit" class="btn-primary" [disabled]="isLoading">
+        <span *ngIf="!isLoading">Crear cuenta</span>
+        <span *ngIf="isLoading" class="spinner"></span>
+        <i *ngIf="!isLoading" class="fas fa-arrow-right btn-icon"></i>
       </button>
+      <!-- VERIFICACIÓN MFA -->
 
+<div class="codigo-box" *ngIf="mostrarCodigo">
+
+  <h3>Verifica tu correo</h3>
+
+  <p>
+    Te enviamos un código a:
+    <strong>{{ form.email }}</strong>
+  </p>
+
+  <div class="input-group">
+
+    <label>Código de verificación</label>
+
+    <div class="input-wrapper">
+      <i class="fas fa-shield-alt input-icon"></i>
+
+      <input
+        type="text"
+        maxlength="6"
+        [(ngModel)]="codigo"
+        name="codigo"
+        placeholder="123456"
+      />
+    </div>
+
+  </div>
+
+  <button
+    type="button"
+    class="btn-primary"
+    (click)="verificarCodigo()"
+  >
+    Verificar código
+  </button>
+
+</div>
+<div class="success-box" *ngIf="cuentaCreada">
+
+  <i class="fas fa-check-circle"></i>
+
+  <h2>Cuenta creada correctamente</h2>
+
+  <p>
+    Ya puedes iniciar sesión.
+  </p>
+
+  <button
+    type="button"
+    class="btn-primary"
+    (click)="irLogin()"
+  >
+    Ir al login
+  </button>
+
+</div>
     </form>
 
     <p class="login-link">
-      ¿Ya tienes cuenta?
-      <span (click)="irLogin()">Inicia sesión</span>
+      ¿Ya tienes cuenta? <span (click)="irLogin()">Inicia sesión</span>
     </p>
   </div>
 </div>

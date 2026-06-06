@@ -10,33 +10,54 @@
   <div class="login-card">
     <h2>INICIO DE SESIÓN</h2>
 
-    <form (ngSubmit)="login()">
-      <div class="input-group">
+    <form (ngSubmit)="submitLogin()">
+
+      <!-- Email -->
+      <div class="input-group" [class.has-error]="hasError('email')">
         <label>Correo</label>
-        <input 
+        <input
           type="email"
           placeholder="nombre@gmail.com"
           [(ngModel)]="email"
           name="email"
-          required
+          (blur)="markTouched('email')"
+          (input)="markTouched('email')"
         />
+        <span class="error-msg" *ngIf="hasError('email')">
+          ⚠ {{ errorMsg('email') }}
+        </span>
       </div>
 
-      <div class="input-group">
+      <!-- Contraseña -->
+      <div class="input-group" [class.has-error]="hasError('password')">
         <label>Contraseña</label>
-        <input 
-          type="password"
-          placeholder="********"
-          [(ngModel)]="password"
-          name="password"
-          required
-        />
+        <div class="password-wrap">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            placeholder="********"
+            [(ngModel)]="password"
+            name="password"
+            (blur)="markTouched('password')"
+            (input)="markTouched('password')"
+          />
+         
+        </div>
+        <span class="error-msg" *ngIf="hasError('password')">
+          ⚠ {{ errorMsg('password') }}
+        </span>
       </div>
 
       <p class="forgot">¿Olvidaste tu contraseña?</p>
 
-      <button type="submit" class="btn-primary">Entrar</button>
-      
+      <!-- Botón submit -->
+      <button type="submit" class="btn-primary" [disabled]="isLoading">
+        <span *ngIf="!isLoading">Entrar</span>
+        <span *ngIf="isLoading" class="spinner"></span>
+      </button>
+
+      <!-- Error general (viene del servidor) -->
+      <p class="server-error" *ngIf="serverError">⚠ {{ serverError }}</p>
+
       <p class="continue">O continúa con:</p>
 
       <div class="social-buttons">

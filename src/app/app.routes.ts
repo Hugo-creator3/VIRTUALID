@@ -17,11 +17,10 @@ import { NabvarFunctions } from './shared/nabvar-functions/nabvar-functions';
 import { Registro } from './home/registro/registro';
 
 
-
-
-
 export const routes: Routes = [
 
+
+  
    {
     path: '',
     component: Nabvar,
@@ -56,6 +55,7 @@ export const routes: Routes = [
     children: [
   
     {
+      
     path: 'notificaciones',
     component: Notificaciones,
   },

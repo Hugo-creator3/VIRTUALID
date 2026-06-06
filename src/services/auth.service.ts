@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http'
 })
 export class AuthService {
 
-  api = 'http://localhost:3000/api/auth'
+  api = 'https://backendv-4q6s.onrender.com/api/auth'
 
   constructor(private http: HttpClient) {}
 
@@ -21,14 +21,20 @@ export class AuthService {
   login(data:any){
     return this.http.post(`${this.api}/login`,data)
   }
+enviarCodigo(data:any){
+  return this.http.post(`${this.api}/send-code`, data)
+}
 
+verificarCodigo(data:any){
+  return this.http.post(`${this.api}/verify-code`, data)
+}
   
   getPanel(){
 
 const token = localStorage.getItem("token")
 
 return this.http.get(
-"http://localhost:3000/api/panel",
+"https://backendv-4q6s.onrender.com/api/panel",
 {
 headers:{
 Authorization:`Bearer ${token}`

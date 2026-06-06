@@ -1,15 +1,25 @@
-import { Component } from '@angular/core';
-import { NabvarFunctions } from '../../shared/nabvar-functions/nabvar-functions';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { NotificacionesService } from '../../../services/notificaciones.service';
+import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
+
+
 
 @Component({
   selector: 'app-notificaciones',
-  imports: [NabvarFunctions, RouterOutlet],
+  standalone: true,
   templateUrl: './notificaciones.html',
   styleUrl: './notificaciones.css',
+    imports: [CommonModule] // 👈 ESTO ES LA CLAVE
+
 })
-export class Notificaciones {
+export class Notificaciones implements OnInit {
 
+  notificaciones$!: Observable<any[]>; // 👈 observable
 
+  constructor(private notifService: NotificacionesService) {}
 
+  ngOnInit(): void {
+    this.notificaciones$ = this.notifService.getNotificaciones();
+  }
 }

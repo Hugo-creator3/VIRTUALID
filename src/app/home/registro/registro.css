@@ -541,3 +541,78 @@ input:focus {
   input { font-size: 12px; padding: 10px 34px; }
   .btn-primary { font-size: 14px; padding: 12px; }
 }
+/* ── Campo con error ─────────────────────────────────────────────────────── */
+.input-group.has-error .input-wrapper input {
+  border-color: #f87171;
+  box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.2);
+}
+
+.error-msg {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.72rem;
+  color: #f87171;
+  animation: slideIn 0.2s ease forwards;
+}
+
+/* ── Error servidor ──────────────────────────────────────────────────────── */
+.server-error {
+  text-align: center;
+  font-size: 0.78rem;
+  color: #f87171;
+  margin: 8px 0;
+  animation: slideIn 0.2s ease forwards;
+}
+
+/* ── Fortaleza de contraseña ─────────────────────────────────────────────── */
+.strength-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.strength-bars {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+}
+
+.strength-bars .bar {
+  flex: 1;
+  height: 4px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.1);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.strength-bars .bar.active.weak   { background: #f87171; box-shadow: 0 0 5px rgba(248,113,113,.5); }
+.strength-bars .bar.active.fair   { background: #fbbf24; box-shadow: 0 0 5px rgba(251,191,36,.5);  }
+.strength-bars .bar.active.good   { background: #34d399; box-shadow: 0 0 5px rgba(52,211,153,.5);  }
+.strength-bars .bar.active.strong { background: #4ade80; box-shadow: 0 0 6px rgba(74,222,128,.6);  }
+
+.strength-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  min-width: 48px;
+  text-align: right;
+}
+.strength-label.weak   { color: #f87171; }
+.strength-label.fair   { color: #fbbf24; }
+.strength-label.good   { color: #34d399; }
+.strength-label.strong { color: #4ade80; }
+
+/* ── Spinner ─────────────────────────────────────────────────────────────── */
+.spinner {
+  display: inline-block;
+  width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin    { to { transform: rotate(360deg); } }
+@keyframes slideIn { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:translateY(0); } }

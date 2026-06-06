@@ -1,57 +1,301 @@
-<!-- Contenedor principal de reportes -->
-<div class="reportes-container">
-  <h1 class="reportes-title">Reportes</h1>
-  
-  <div class="reporte-form">
-    <!-- Tipo de reporte -->
-    <div class="form-group">
-      <label for="tipoReporte">Tipo de reporte</label>
-      <select 
-        id="tipoReporte" 
-        class="form-control"
-        [(ngModel)]="reporte.tipoReporte"
-        name="tipoReporte">
-        <option value="" disabled selected>Problema de sistema</option>
-        <option *ngFor="let tipo of tiposReporte" [value]="tipo">
-          {{ tipo }}
-        </option>
-      </select>
-    </div>
+<!-- reportes.html -->
+<div class="main-container">
 
-    <!-- Rango de Fechas -->
-    <div class="form-group">
-      <label>Rango de Fechas</label>
-      <div class="fecha-inputs">
-        <input 
-          type="date" 
-          class="form-control"
-          [(ngModel)]="reporte.fechaInicio"
-          name="fechaInicio"
-          placeholder="Fecha de inicio">
-        <input 
-          type="date" 
-          class="form-control"
-          [(ngModel)]="reporte.fechaFin"
-          name="fechaFin"
-          placeholder="Fecha de inicio">
+  <!-- HEADER -->
+  <div class="content-wrapper">
+    <div class="header-section">
+      <h1>Reportes generales</h1>
+      <p class="header-sub">Envía reportes al sistema, consulta incidencias por rango de fechas y comunica avisos directamente a los usuarios de la app móvil.</p>
+    </div>
+  </div>
+
+  <div class="content-wrapper content-wrapper--body">
+    <div class="reportes-layout">
+
+      <!-- ══ COLUMNA IZQUIERDA: Reporte al sistema ══ -->
+      <div class="col-main">
+
+        <!-- BLOQUE REPORTE SISTEMA -->
+        <div class="config-block">
+          <div class="block-header">
+            <span class="block-header-icon">◈</span>
+            <div class="block-header-text">
+              <h2 class="block-title">Reporte al Sistema</h2>
+              <p class="block-sub">Documenta incidencias técnicas o sugerencias para el equipo de soporte</p>
+            </div>
+            <div class="status-badge">
+              <span class="status-dot"></span>
+              Sistema activo
+            </div>
+          </div>
+
+          <!-- Tipo de reporte -->
+          <div class="field-group">
+            <label class="field-label">
+              <span class="label-icon">⊞</span>
+              Tipo de reporte
+            </label>
+            <div class="select-wrap">
+              <select
+                class="field-select"
+                [(ngModel)]="reporte.tipoReporte"
+                name="tipoReporte"
+              >
+                <option value="" disabled selected>Selecciona una categoría...</option>
+                <option *ngFor="let tipo of tiposReporte" [value]="tipo">{{ tipo }}</option>
+              </select>
+              <span class="select-arrow">⌄</span>
+            </div>
+          </div>
+
+          <!-- Rango de fechas -->
+          <div class="field-group">
+            <label class="field-label">
+              <span class="label-icon">⌬</span>
+              Rango de fechas
+            </label>
+            <div class="date-row">
+              <div class="date-field">
+                <span class="date-prefix">Desde</span>
+                <input
+                  type="date"
+                  class="field-input field-date"
+                  [(ngModel)]="reporte.fechaInicio"
+                  name="fechaInicio"
+                />
+              </div>
+              <div class="date-arrow">→</div>
+              <div class="date-field">
+                <span class="date-prefix">Hasta</span>
+                <input
+                  type="date"
+                  class="field-input field-date"
+                  [(ngModel)]="reporte.fechaFin"
+                  name="fechaFin"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Mensaje -->
+          <div class="field-group">
+            <label class="field-label">
+              <span class="label-icon">✉</span>
+              Descripción del incidente
+            </label>
+            <textarea
+              class="field-input field-textarea"
+              [(ngModel)]="reporte.mensaje"
+              name="mensaje"
+              placeholder="Describe con detalle el problema, el comportamiento esperado y los pasos para reproducirlo..."
+              rows="5"
+            ></textarea>
+            <span class="char-hint">{{ reporte.mensaje.length }} caracteres</span>
+          </div>
+
+          <!-- Acciones -->
+          <div class="form-actions">
+            <button class="btn-secondary" (click)="limpiarFormulario()">
+              ↺ Limpiar
+            </button>
+            <button class="btn-primary" (click)="enviarReporte()">
+              <span>⊕</span>
+              Enviar Reporte
+            </button>
+          </div>
+        </div>
+
+        <!-- HISTORIAL SIMULADO -->
+        <div class="config-block block-history">
+          <div class="block-header">
+            <span class="block-header-icon">◉</span>
+            <div class="block-header-text">
+              <h2 class="block-title">Historial Reciente</h2>
+              <p class="block-sub">Últimos reportes enviados al sistema</p>
+            </div>
+          </div>
+
+          <div class="history-list">
+            <div class="history-item history-resuelto">
+              <div class="history-stripe"></div>
+              <div class="history-body">
+                <div class="history-top">
+                  <span class="history-badge badge-resuelto">Resuelto</span>
+                  <span class="history-date">28 abr 2025</span>
+                </div>
+                <p class="history-title">Fallo técnico en módulo de acceso biométrico</p>
+                <p class="history-msg">Los registros de asistencia no se sincronizaban correctamente con el servidor.</p>
+              </div>
+            </div>
+
+            <div class="history-item history-proceso">
+              <div class="history-stripe"></div>
+              <div class="history-body">
+                <div class="history-top">
+                  <span class="history-badge badge-proceso">En proceso</span>
+                  <span class="history-date">01 may 2025</span>
+                </div>
+                <p class="history-title">Error de acceso — usuarios con token expirado</p>
+                <p class="history-msg">Varios usuarios reportaron no poder iniciar sesión tras actualización de app.</p>
+              </div>
+            </div>
+
+            <div class="history-item history-pendiente">
+              <div class="history-stripe"></div>
+              <div class="history-body">
+                <div class="history-top">
+                  <span class="history-badge badge-pendiente">Pendiente</span>
+                  <span class="history-date">03 may 2025</span>
+                </div>
+                <p class="history-title">Sugerencia: exportar reportes en PDF</p>
+                <p class="history-msg">Se solicita agregar opción de descarga en formato PDF desde el panel.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
-    </div>
 
-    <!-- Mensaje -->
-    <div class="form-group">
-      <label for="mensaje">Escribe tu mensaje</label>
-      <textarea 
-        id="mensaje"
-        class="form-control textarea-mensaje"
-        [(ngModel)]="reporte.mensaje"
-        name="mensaje"
-        placeholder="Mensaje"
-        rows="4"></textarea>
-    </div>
+      <!-- ══ COLUMNA DERECHA: Notificaciones móviles ══ -->
+      <div class="col-side">
 
-    <!-- Botón Enviar -->
-    <button class="btn-enviar" (click)="enviarReporte()">
-      Enviar
-    </button>
+        <!-- PUSH GLOBAL -->
+        <div class="config-block block-push">
+          <div class="block-header">
+            <span class="block-header-icon">📢</span>
+            <div class="block-header-text">
+              <h2 class="block-title">Aviso Global</h2>
+              <p class="block-sub">Envía una notificación push a <strong>todos</strong> los usuarios de la app</p>
+            </div>
+          </div>
+
+          <div class="push-preview">
+            <div class="phone-notif">
+              <div class="phone-notif-icon">🏫</div>
+              <div class="phone-notif-text">
+                <span class="phone-notif-app">{{ nombreInstitucion || 'Tu Institución' }}</span>
+                <span class="phone-notif-msg">{{ pushGlobal.mensaje || 'Vista previa del mensaje...' }}</span>
+              </div>
+              <span class="phone-notif-time">ahora</span>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">
+              <span class="label-icon">⊞</span>
+              Tipo de aviso
+            </label>
+            <div class="push-type-grid">
+              <button class="push-type-btn" [class.active]="pushGlobal.tipo === 'informativo'" (click)="pushGlobal.tipo = 'informativo'">
+                <span>ℹ</span> Informativo
+              </button>
+              <button class="push-type-btn" [class.active]="pushGlobal.tipo === 'urgente'" (click)="pushGlobal.tipo = 'urgente'">
+                <span>⚠</span> Urgente
+              </button>
+              <button class="push-type-btn" [class.active]="pushGlobal.tipo === 'recordatorio'" (click)="pushGlobal.tipo = 'recordatorio'">
+                <span>◎</span> Recordatorio
+              </button>
+              <button class="push-type-btn" [class.active]="pushGlobal.tipo === 'evento'" (click)="pushGlobal.tipo = 'evento'">
+                <span>✦</span> Evento
+              </button>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">
+              <span class="label-icon">✉</span>
+              Mensaje del aviso
+            </label>
+            <textarea
+              class="field-input field-textarea field-textarea--sm"
+              [(ngModel)]="pushGlobal.mensaje"
+              placeholder="Ej. Recuerda registrar tu asistencia antes de las 9:00 AM..."
+              rows="3"
+            ></textarea>
+          </div>
+
+          <button class="btn-push btn-push--global" (click)="enviarPushGlobal()">
+            <span>📢</span>
+            Enviar a todos los usuarios
+          </button>
+
+          <div class="push-meta">
+            <span class="meta-icon">◉</span>
+            Se enviará a <strong>todos</strong> los dispositivos registrados de la institución
+          </div>
+        </div>
+
+        <!-- PUSH INDIVIDUAL -->
+        <div class="config-block block-push">
+          <div class="block-header">
+            <span class="block-header-icon">◎</span>
+            <div class="block-header-text">
+              <h2 class="block-title">Aviso Individual</h2>
+              <p class="block-sub">Envía un mensaje directo a un usuario específico</p>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">
+              <span class="label-icon">◉</span>
+              Buscar usuario
+            </label>
+            <div class="search-field">
+              <span class="search-icon">⌕</span>
+              <input
+                type="text"
+                class="field-input field-search"
+                [(ngModel)]="pushIndividual.busqueda"
+                placeholder="Nombre, ID o correo del usuario..."
+              />
+            </div>
+          </div>
+
+          <!-- Usuarios simulados -->
+          <div class="user-results" *ngIf="pushIndividual.busqueda.length > 0">
+            <div
+              class="user-result-item"
+              *ngFor="let u of getUsuariosFiltrados()"
+              [class.selected]="pushIndividual.usuarioSeleccionado === u.id"
+              (click)="seleccionarUsuario(u)"
+            >
+              <div class="user-avatar">{{ u.iniciales }}</div>
+              <div class="user-info">
+                <span class="user-name">{{ u.nombre }}</span>
+                <span class="user-id">{{ u.rol }} · {{ u.id }}</span>
+              </div>
+              <span class="user-check" *ngIf="pushIndividual.usuarioSeleccionado === u.id">✓</span>
+            </div>
+            <div class="no-results" *ngIf="getUsuariosFiltrados().length === 0">
+              <span>Sin resultados para "{{ pushIndividual.busqueda }}"</span>
+            </div>
+          </div>
+
+          <div class="field-group" *ngIf="pushIndividual.usuarioSeleccionado">
+            <label class="field-label">
+              <span class="label-icon">✉</span>
+              Mensaje personalizado
+            </label>
+            <textarea
+              class="field-input field-textarea field-textarea--sm"
+              [(ngModel)]="pushIndividual.mensaje"
+              placeholder="Escribe un mensaje directo para este usuario..."
+              rows="3"
+            ></textarea>
+          </div>
+
+          <button
+            class="btn-push btn-push--individual"
+            [disabled]="!pushIndividual.usuarioSeleccionado || !pushIndividual.mensaje"
+            (click)="enviarPushIndividual()"
+          >
+            <span>◎</span>
+            Enviar mensaje
+          </button>
+        </div>
+
+      </div>
+
+    </div>
   </div>
 </div>

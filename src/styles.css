@@ -65,5 +65,73 @@
   --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
   --text-muted: #6b7280;
   --bg-light: #f9fafb;
+      --vid-blue: #185FA5;
+  --vid-blue-light: #cce0f5;
+  --vid-blue-mid: #378ADD;
+  --vid-teal: #0F6E56;
+  --vid-teal-light: #b8ead9;
+  --vid-teal-mid: #1D9E75;
+  --vid-purple: #534AB7;
+  --vid-purple-light: #d9d7f8;
+  --color-bg: #ffffff;
+  --color-bg-secondary: #f0f0f0;
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #5a5a58;
+  --color-border: rgba(0, 0, 0, 0.12);
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --px: 70px;
+  --blue-900:  #060d2e;
+  --blue-800:  #0a1650;
+  --blue-700:  #0d2070;
+  --blue-600:  #102a83;
+  --blue-500:  #1a3aad;
+  --blue-400:  #2d52cc;
+  --blue-300:  #5578e8;
+
+  --violet-900: #2d0040;
+  --violet-700: #5a1560;
+  --violet-600: #721c8b;
+  --violet-500: #9c27b0;
+  --violet-400: #b030cc;
+  --violet-300: #cf5fe8;
+
+  --success:   #00e0a0;
+  --danger:    #ff4d6d;
+  --warn:      #ffb347;
+
+  --bg:        #f0f0f6;
+  --bg-card:   #f8f8fc;
+  --surface:   #ffffff;
+  --border:    rgba(16,42,131,0.15);
+  --text-main: #0d1140;
+  --text-muted:#6b7394;
+
+  --sidebar-w: 220px;
+  --sidebar-w-collapsed: 64px;
+  --topbar-h:  64px;
+
+  --radius-lg: 16px;
+  --radius-md: 10px;
+  --radius-sm: 6px;
+
+  --shadow-card: 0 4px 20px rgba(16,42,131,0.12), 0 1px 4px rgba(16,42,131,0.08);
+  --shadow-hover: 0 12px 36px rgba(16,42,131,0.22), 0 2px 8px rgba(156,39,176,0.15);
+
+  --transition: 0.28s cubic-bezier(.22,.68,0,1.2);
     /* You can add global styles to this file, and also import other style files */
+}
+
+
+
+* {
+
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
 }

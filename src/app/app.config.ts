@@ -17,12 +17,18 @@ import { Dashboard } from './admin/dashboard/dashboard';
 import { Settings } from './admin/settings/settings';
 import { Reportes } from './functions/reportes/reportes';
 
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http'
 import { routes } from './app.routes';
+import { AuthInterceptor } from './interceptors/auth-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes)
+    provideRouter(routes),
+    {
+     provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+    }
   ]
 };

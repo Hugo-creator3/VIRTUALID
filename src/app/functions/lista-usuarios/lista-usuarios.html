@@ -3,9 +3,17 @@
     <div class="header-section">
       <h1>Lista de Usuarios</h1>
       <div class="header-actions">
-        <button class="btn-search">Buscar Usuario</button>
-        <button class="btn-export">Exportar</button>
-        <button class="btn-add">Agregar Usuario</button>
+<input
+  type="text"
+  name="searchTerm"
+  autocomplete="off"
+  autocapitalize="none"
+  spellcheck="false"
+  placeholder="Buscar usuario..."
+  [(ngModel)]="searchTerm"
+  (input)="filterUsers()"
+  class="search-input"
+/>        <button class="btn-add" (click)="addUser()">Agregar Usuario</button>
       </div>
     </div>
 
@@ -18,7 +26,7 @@
             </th>
             <th>Nombre</th>
             <th>Correo Electrónico</th>
-            <th>Ubicación</th>
+            <th>Telefono</th>
             <th>Fecha de registro</th>
             <th class="actions-col">
               <svg class="calendar-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -35,12 +43,9 @@
             <td>{{ user.nombre }}</td>
             <td>{{ user.email }}</td>
             <td>
-              <span class="location">
-                <svg class="location-icon" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                </svg>
-                {{ user.ubicacion }}
-              </span>
+             <span class="phone">
+  {{ user.telefono }}
+</span>
             </td>
             <td>{{ user.fechaRegistro }}</td>
             <td class="actions-col">
@@ -62,9 +67,213 @@
                 </button>
               </div>
             </td>
+            
           </tr>
+          
         </tbody>
       </table>
+    </div>
+
+    <!-- Modal Agregar Usuario -->
+    <div class="modal-overlay" *ngIf="showAddModal" (click)="closeAddModal()"></div>
+    <div class="modal-window" *ngIf="showAddModal">
+      <div class="modal-content-new" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h2>Agregar Nuevo Usuario</h2>
+          <button class="modal-close-btn" (click)="closeAddModal()">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Nombre *</label>
+            <input
+              type="text"
+              name="nuevoNombre"
+              autocomplete="off"
+              [(ngModel)]="nuevoUsuario.nombre"
+              placeholder="Juan"
+              class="form-input"
+            >
+          </div>
+
+          <div class="form-group">
+            <label>Apellidos *</label>
+            <input
+              type="text"
+              [(ngModel)]="nuevoUsuario.apellidos"
+              placeholder="Pérez García"
+              class="form-input"
+            >
+          </div>
+
+          <div class="form-group">
+            <label>Correo Electrónico *</label>
+            <input
+              type="email"
+              name="nuevoEmail"
+              autocomplete="off"
+              [(ngModel)]="nuevoUsuario.email"
+              placeholder="usuario@example.com"
+              class="form-input"
+            >
+          </div>
+
+          <div class="form-group">
+            <label>Contraseña *</label>
+            <input
+              type="password"
+              name="nuevoPassword"
+              autocomplete="new-password"
+              [(ngModel)]="nuevoUsuario.password"
+              placeholder="••••••••"
+              class="form-input"
+            >
+          </div>
+
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input maxlength="10"
+              type="tel"
+              [(ngModel)]="nuevoUsuario.telefono"
+              placeholder="+34 123 456 789"
+              class="form-input"
+            >
+          </div>
+
+          <div class="form-group">
+            <label>Género</label>
+            <select [(ngModel)]="nuevoUsuario.genero" class="form-input">
+              <option value="">Seleccionar género</option>
+              <option value="Masculino">Masculino</option>
+              <option value="Femenino">Femenino</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn-cancel" (click)="closeAddModal()">Cancelar</button>
+          <button class="btn-submit" (click)="submitNewUser()">Agregar Usuario</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Editar Usuario -->
+    <div class="modal-overlay" *ngIf="showEditModal" (click)="closeEditModal()"></div>
+    <div class="modal-window" *ngIf="showEditModal">
+      <div class="modal-content-new" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h2>Editar Usuario</h2>
+          <button class="modal-close-btn" (click)="closeEditModal()">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Nombre *</label>
+            <input
+              type="text"
+              name="editNombre"
+              autocomplete="off"
+              [(ngModel)]="usuarioEnEdicion.nombre"
+              placeholder="Nombre"
+              class="form-input"
+            >
+          </div>
+
+          <div class="form-group">
+            <label>Apellidos *</label>
+            <input
+              type="text"
+              [(ngModel)]="usuarioEnEdicion.apellidos"
+              placeholder="Apellidos"
+              class="form-input"
+            >
+          </div>
+
+          <div class="form-group">
+            <label>Correo Electrónico *</label>
+            <input
+              type="email"
+              name="editEmail"
+              autocomplete="off"
+              [(ngModel)]="usuarioEnEdicion.email"
+              placeholder="usuario@example.com"
+              class="form-input"
+            >
+          </div>
+
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input
+              type="tel"
+              name="editTelefono"
+              autocomplete="off"
+              [(ngModel)]="usuarioEnEdicion.telefono"
+              placeholder="+34 123 456 789"
+              class="form-input"
+            >
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn-cancel" (click)="closeEditModal()">Cancelar</button>
+          <button class="btn-submit" (click)="submitEditUser()">Guardar Cambios</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" *ngIf="showConfirmModal" (click)="closeConfirmModal()"></div>
+    <div class="modal-window" *ngIf="showConfirmModal">
+      <div class="modal-content-new confirm-modal" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h2>{{ confirmModalData.title }}</h2>
+          <button class="modal-close-btn" (click)="closeConfirmModal()">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="confirm-message">{{ confirmModalData.message }}</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-cancel" (click)="closeConfirmModal()">{{ confirmModalData.cancelText }}</button>
+          <button class="btn-submit btn-danger" (click)="confirmModalData.onConfirm()">{{ confirmModalData.confirmText }}</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" *ngIf="showStatusModal" (click)="closeStatusModal()"></div>
+    <div class="modal-window" *ngIf="showStatusModal">
+      <div class="modal-content-new status-modal" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h2>{{ statusModalData.title }}</h2>
+          <button class="modal-close-btn" (click)="closeStatusModal()">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body status-body">
+          <div class="status-icon" [ngClass]="statusModalData.type">
+            <span *ngIf="statusModalData.type === 'success'">✓</span>
+            <span *ngIf="statusModalData.type === 'error'">!</span>
+            <span *ngIf="statusModalData.type === 'info'">i</span>
+          </div>
+          <p class="status-message">{{ statusModalData.message }}</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-submit" (click)="closeStatusModal()">Entendido</button>
+        </div>
+      </div>
     </div>
 
     <div class="pagination-container">
@@ -89,6 +298,8 @@
           <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
         </svg>
       </button>
+
+      
     </div>
   </div>
 </div>

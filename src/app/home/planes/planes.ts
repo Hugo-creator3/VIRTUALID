@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { routes } from '../../app.routes';
-import { RouterOutlet } from '@angular/router';
-import { Nabvar } from '../../shared/nabvar/nabvar';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-planes',
   standalone: true,
-  imports: [RouterOutlet, Nabvar, CommonModule],
+  imports: [CommonModule],
   templateUrl: './planes.html',
   styleUrl: './planes.css',
 })

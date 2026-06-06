@@ -1,64 +1,707 @@
-
+<!-- panel-control.html -->
 <div class="dashboard-wrapper">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" [class.collapsed]="sidebarCollapsed">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <span class="logo-icon">⬡</span>
+        <span class="logo-text" *ngIf="!sidebarCollapsed">VidPanel</span>
+      </div>
+      <button class="sidebar-toggle" (click)="toggleSidebar()">
+        <span>{{ sidebarCollapsed ? '›' : '‹' }}</span>
+      </button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="nav-item" [class.active]="activeSection === 'dashboard'" (click)="setSection('dashboard')">
+        <span class="nav-icon">⊞</span>
+        <span class="nav-label" *ngIf="!sidebarCollapsed">Panel de Control</span>
+        <span class="nav-tooltip" *ngIf="sidebarCollapsed">Panel de Control</span>
+      </a>
+      <a class="nav-item" [class.active]="activeSection === 'usuarios'" (click)="setSection('usuarios')">
+        <span class="nav-icon">◉</span>
+        <span class="nav-label" *ngIf="!sidebarCollapsed">Estatus de usuarios</span>
+        <span class="nav-tooltip" *ngIf="sidebarCollapsed">Estatus de usuarios</span>
+      </a>
+      <a class="nav-item" [class.active]="activeSection === 'accesos'" (click)="setSection('accesos')">
+        <span class="nav-icon">⌬</span>
+        <span class="nav-label" *ngIf="!sidebarCollapsed">Accesos</span>
+        <span class="nav-tooltip" *ngIf="sidebarCollapsed">Accesos</span>
+      </a>
+      <a class="nav-item" [class.active]="activeSection === 'reportes'" (click)="setSection('reportes')">
+        <span class="nav-icon">◈</span>
+        <span class="nav-label" *ngIf="!sidebarCollapsed">Generar Reportes</span>
+        <span class="nav-tooltip" *ngIf="sidebarCollapsed">Generar Reportes</span>
+      </a>
+      <a class="nav-item"
+   [class.active]="activeSection === 'configuracion'"
+   (click)="setSection('configuracion')">
+
+  <span class="nav-icon">⚙</span>
+
+  <span class="nav-label" *ngIf="!sidebarCollapsed">
+    Configuración
+  </span>
+
+  <span class="nav-tooltip" *ngIf="sidebarCollapsed">
+    Config
+  </span>
+
+</a>
+     <ng-container *ngIf="activeSection === 'configuracion'">
+
+
+</ng-container>
+       <a class="nav-item" [class.active]="activeSection === 'virtualia'" (click)="setSection('virtualia')">
+        <span class="nav-icon">🤖​</span>
+        <span class="nav-label" *ngIf="!sidebarCollapsed">Virtualia</span>
+        <span class="nav-tooltip" *ngIf="sidebarCollapsed">Virtualia</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer" *ngIf="!sidebarCollapsed">
+      <div class="admin-info" *ngIf="panel$ | async as panel">
+        <div class="admin-avatar">{{ getInitial(panel.mensaje) }}</div>
+        <div class="admin-details">
+          <span class="admin-name">{{ panel.mensaje }}</span>
+          <span class="admin-inst">{{ panel.institucion }}</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
   <div class="main-layout">
-    <aside class="sidebar">
-      <div class="side-icon">☰</div><div class="side-icon">🎯</div>
-      <div class="side-icon">📊</div><div class="side-icon">⭐</div>
-      <div class="side-icon">❤️</div><div class="side-icon">📍</div>
-      <div class="side-icon">⚙️</div><div class="side-icon">✈️</div>
-      <div class="side-icon">💼</div>
-    </aside>
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1 class="page-title">{{ getSectionTitle() }}</h1>
+        <span class="breadcrumb">Panel / {{ getSectionTitle() }}</span>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-time">{{ currentTime }}</div>
+        <div class="status-indicator">
+          <span class="status-dot"></span>
+          <span class="status-text">En vivo</span>
+        </div>
+        <button class="refresh-btn" (click)="refresh()">↻ Actualizar</button>
+      </div>
+    </header>
 
     <main class="content">
-      <h1 class="main-title">Panel de Control</h1>
-      <h1>{{mensaje}}</h1>
-<h2>Institución: {{institucion}}</h2>
 
-      <section class="metrics-grid">
-        <div class="metric-card">
-          <span class="number">10</span>
-          <span class="label">Usuarios Activos</span>
-        </div>
-        <div class="metric-card">
-          <span class="number">45</span>
-          <span class="label">Accesos Hoy</span>
-        </div>
-        <div class="metric-card">
-          <span class="number">90%</span>
-          <span class="label">Validaciones Exitosas</span>
-        </div>
-      </section>
+      <!-- ─── DASHBOARD SECTION ─── -->
+      <ng-container *ngIf="activeSection === 'dashboard'">
 
-      <section class="chart-container">
-        <h2 class="chart-title">Registros De Asistencia</h2>
-        <div class="chart-area">
-          <div class="y-axis">
-            <span>9:00</span><span>8:30</span><span>8:00</span><span>7:30</span>
+        <!-- METRICS GRID -->
+        <section class="metrics-grid" *ngIf="dashboard$ | async as d">
+
+          <div class="metric-card card-users">
+            <div class="card-icon">◉</div>
+            <div class="card-body">
+              <span class="number">{{ d.usuarios }}</span>
+              <span class="label">Total Usuarios</span>
+            </div>
+            <div class="card-glow"></div>
           </div>
-          <div class="bars-wrapper">
-            <div class="bar-group">
-              <div class="bar purple-dark" style="height: 80%;"></div>
-              <span class="bar-value">19</span>
+
+          <div class="metric-card card-accesos">
+            <div class="card-icon">⌬</div>
+            <div class="card-body">
+              <span class="number">{{ d.accesosHoy }}</span>
+              <span class="label">Accesos Hoy</span>
             </div>
-            <div class="bar-group">
-              <div class="bar purple-vibrant" style="height: 60%;"></div>
-              <span class="bar-value">12</span>
+            <div class="card-glow"></div>
+          </div>
+
+          <div class="metric-card card-success">
+            <div class="card-icon">✓</div>
+            <div class="card-body">
+              <span class="number">{{ d.exitosos }}</span>
+              <span class="label">Exitosos</span>
             </div>
-            <div class="bar-group">
-              <div class="bar purple-medium" style="height: 75%;"></div>
-              <span class="bar-value">16</span>
+            <div class="card-glow"></div>
+          </div>
+
+          <div class="metric-card card-danger">
+            <div class="card-icon">✕</div>
+            <div class="card-body">
+              <span class="number">{{ d.fallidos }}</span>
+              <span class="label">Fallidos</span>
             </div>
-            <div class="bar-group">
-              <div class="bar purple-vibrant" style="height: 45%;"></div>
-              <span class="bar-value">8</span>
+            <div class="card-glow"></div>
+          </div>
+
+          <div class="metric-card card-pct-success">
+            <div class="card-icon">◑</div>
+            <div class="card-body">
+              <span class="number">{{ d.porcentaje }}<small>%</small></span>
+              <span class="label">Tasa de Éxito</span>
             </div>
-            <div class="bar-group">
-              <div class="bar purple-dark" style="height: 95%;"></div>
-              <span class="bar-value">21</span>
+            <div class="progress-ring">
+              <svg viewBox="0 0 36 36">
+                <circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="2.5"/>
+                <circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2.5"
+                  [attr.stroke-dasharray]="(d.porcentaje * 0.942) + ' 94.2'"
+                  stroke-linecap="round"
+                  transform="rotate(-90 18 18)"/>
+              </svg>
+            </div>
+            <div class="card-glow"></div>
+          </div>
+
+          <div class="metric-card card-pct-danger">
+            <div class="card-icon">◐</div>
+            <div class="card-body">
+              <span class="number">{{ d.porcentajeFallidos }}<small>%</small></span>
+              <span class="label">Tasa de Fallos</span>
+            </div>
+            <div class="progress-ring">
+              <svg viewBox="0 0 36 36">
+                <circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="2.5"/>
+                <circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2.5"
+                  [attr.stroke-dasharray]="(d.porcentajeFallidos * 0.942) + ' 94.2'"
+                  stroke-linecap="round"
+                  transform="rotate(-90 18 18)"/>
+              </svg>
+            </div>
+            <div class="card-glow"></div>
+          </div>
+
+        </section>
+
+        <!-- CHART -->
+        <section class="chart-section" *ngIf="dashboard$ | async as d">
+          <div class="chart-header">
+            <h2 class="chart-title">Distribución de Accesos del Día</h2>
+            <div class="chart-legend">
+              <span class="legend-item legend-success">Exitosos</span>
+              <span class="legend-item legend-fail">Fallidos</span>
             </div>
           </div>
+
+          <div class="chart-container">
+            <div class="chart-area">
+              <!-- Y-axis labels -->
+              <div class="y-axis">
+                <span>{{ getYMax(d) }}</span>
+                <span>{{ getYMid(d) }}</span>
+                <span>0</span>
+              </div>
+
+              <!-- Bars -->
+              <div class="bars-wrapper">
+                <!-- Exitosos bar -->
+                <div class="bar-group">
+                  <div class="bar-tooltip">{{ d.exitosos }} exitosos</div>
+                  <div class="bar bar-success"
+                       [style.height.%]="getBarHeight(d.exitosos, d)">
+                  </div>
+                  <span class="bar-label">✓ Éxito</span>
+                </div>
+
+                <!-- Fallidos bar -->
+                <div class="bar-group">
+                  <div class="bar-tooltip">{{ d.fallidos }} fallidos</div>
+                  <div class="bar bar-fail"
+                       [style.height.%]="getBarHeight(d.fallidos, d)">
+                  </div>
+                  <span class="bar-label">✕ Fallo</span>
+                </div>
+
+                <!-- Total bar -->
+                <div class="bar-group">
+                  <div class="bar-tooltip">{{ d.accesosHoy }} total</div>
+                  <div class="bar bar-total"
+                       [style.height.%]="getBarHeight(d.accesosHoy, d)">
+                  </div>
+                  <span class="bar-label">⊞ Total</span>
+                </div>
+
+                <!-- Tasa exito bar -->
+                <div class="bar-group">
+                  <div class="bar-tooltip">{{ d.porcentaje }}% éxito</div>
+                  <div class="bar bar-pct-success"
+                       [style.height.%]="d.porcentaje">
+                  </div>
+                  <span class="bar-label">% Éxito</span>
+                </div>
+
+                <!-- Tasa fallo bar -->
+                <div class="bar-group">
+                  <div class="bar-tooltip">{{ d.porcentajeFallidos }}% fallos</div>
+                  <div class="bar bar-pct-fail"
+                       [style.height.%]="d.porcentajeFallidos">
+                  </div>
+                  <span class="bar-label">% Fallo</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </ng-container>
+
+      <!-- ─── USUARIOS SECTION ─── -->
+      <ng-container *ngIf="activeSection === 'usuarios'">
+        <section class="usuarios-section" *ngIf="usuariosEstadisticas$ | async as stats">
+
+          <div class="usuarios-summary">
+            <h2>Gestion de Usuarios</h2>
+
+            <div class="metrics-grid">
+              <div class="metric-card">
+                <div class="card-body">
+                  <span class="number">{{ stats.resumen.totalUsuarios }}</span>
+                  <span class="label">Usuarios totales</span>
+                </div>
+              </div>
+
+              <div class="metric-card">
+                <div class="card-body">
+                  <span class="number">{{ stats.resumen.usuariosEvaluados }}</span>
+                  <span class="label">Usuarios evaluados</span>
+                </div>
+              </div>
+
+              <div class="metric-card">
+                <div class="card-body">
+                  <span class="number">{{ stats.resumen.porcentajeAsistencia }}<small>%</small></span>
+                  <span class="label">Asistencia global</span>
+                </div>
+              </div>
+
+              <div class="metric-card">
+                <div class="card-body">
+                  <span class="number">{{ stats.resumen.porcentajePuntualidad }}<small>%</small></span>
+                  <span class="label">Puntualidad global</span>
+                </div>
+              </div>
+
+              <div class="metric-card">
+                <div class="card-body">
+                  <span class="number">{{ stats.resumen.faltas }}</span>
+                  <span class="label">Faltas reales</span>
+                </div>
+              </div>
+
+              <div class="metric-card">
+                <div class="card-body">
+                  <span class="number">{{ stats.resumen.retrasos }}</span>
+                  <span class="label">Retrasos</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="usuarios-categorias">
+            <div class="config-card" *ngFor="let categoria of getCategoriasUsuarios(stats)">
+              <h3>{{ categoria.titulo }} ({{ categoria.total }})</h3>
+              <p>{{ categoria.descripcion }}</p>
+
+              <div *ngIf="categoria.usuarios.length === 0">
+                Sin usuarios en esta categoria.
+              </div>
+
+              <div class="usuario-stat-item" *ngFor="let usuario of categoria.usuarios">
+                <strong>{{ usuario.nombreCompleto }}</strong>
+                <span>{{ usuario.email }}</span>
+                <div>
+                  Asistencia: {{ usuario.porcentajeAsistencia }}% |
+                  Puntualidad: {{ usuario.porcentajePuntualidad }}% |
+                  Faltas: {{ usuario.faltas }} |
+                  Retrasos: {{ usuario.retrasos }} |
+                  Dias evaluados: {{ usuario.diasEsperados }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="config-card">
+            <h3>Ranking de empleados</h3>
+
+            <div class="usuario-ranking-item" *ngFor="let usuario of getTopRanking(stats); let i = index">
+              <strong>{{ i + 1 }}. {{ usuario.nombreCompleto }}</strong>
+              <span>
+                {{ usuario.categoriaTitulo }} -
+                Asistencia {{ usuario.porcentajeAsistencia }}%,
+                Puntualidad {{ usuario.porcentajePuntualidad }}%,
+                Faltas {{ usuario.faltas }},
+                Retrasos {{ usuario.retrasos }}
+              </span>
+            </div>
+          </div>
+
+        </section>
+      </ng-container>
+
+      <!-- ─── ACCESOS SECTION ─── -->
+      <ng-container *ngIf="activeSection === 'accesos'">
+ <div class="access-control-card">
+  <h2>Control Global de Check-in</h2>
+  <p>Habilita o bloquea el acceso para todos los usuarios de esta empresa.</p>
+
+  <div class="semaforo-wrapper">
+    <div class="semaforo">
+      <button
+        class="semaforo-luz luz-roja"
+        [class.activa]="!config.checkin_habilitado"
+        (click)="config.checkin_habilitado = false">
+      </button>
+      <button
+        class="semaforo-luz luz-verde"
+        [class.activa]="config.checkin_habilitado"
+        (click)="config.checkin_habilitado = true">
+      </button>
+    </div>
+    <span class="semaforo-estado" [class.estado-activo]="config.checkin_habilitado">
+      {{ config.checkin_habilitado ? 'ACTIVO' : 'BLOQUEADO' }}
+    </span>
+  </div>
+
+  <button
+    class="save-btn"
+    [class.save-btn--saved]="saveStatus.accesos"
+    (click)="saveConfig('accesos')">
+    <span class="save-btn__icon" *ngIf="saveStatus.accesos">✓</span>
+    {{ saveStatus.accesos ? 'Cambios guardados' : 'Guardar cambios' }}
+  </button>
+
+</div>
+      </ng-container>
+
+      <!-- ─── REPORTES SECTION ─── -->
+     <!-- ─── REPORTES SECTION ─── -->
+<ng-container *ngIf="activeSection === 'reportes'">
+  <div class="reportes-wrap">
+
+    <!-- Tipo de reporte -->
+    <div class="config-card reportes-tipo-card">
+      <h3><span class="card-icon-sm">◈</span> Tipo de reporte</h3>
+      <div class="tipo-reporte-grid">
+        <button class="tipo-btn" [class.tipo-sel]="tipoReporte === 'asistencia'" (click)="tipoReporte = 'asistencia'">
+          <span class="tipo-icon">◉</span>
+          Asistencia
+        </button>
+        <button class="tipo-btn" [class.tipo-sel]="tipoReporte === 'puntualidad'" (click)="tipoReporte = 'puntualidad'">
+          <span class="tipo-icon">⏱</span>
+          Puntualidad
+        </button>
+        <button class="tipo-btn" [class.tipo-sel]="tipoReporte === 'faltas'" (click)="tipoReporte = 'faltas'">
+          <span class="tipo-icon">✕</span>
+          Faltas
+        </button>
+        <button class="tipo-btn" [class.tipo-sel]="tipoReporte === 'estadisticas'" (click)="tipoReporte = 'estadisticas'">
+          <span class="tipo-icon">◈</span>
+          Estadísticas
+        </button>
+        <button class="tipo-btn" [class.tipo-sel]="tipoReporte === 'accesos'" (click)="tipoReporte = 'accesos'">
+          <span class="tipo-icon">⌬</span>
+          Accesos
+        </button>
+        <button class="tipo-btn" [class.tipo-sel]="tipoReporte === 'ranking'" (click)="tipoReporte = 'ranking'">
+          <span class="tipo-icon">⊞</span>
+          Ranking
+        </button>
+      </div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="config-card">
+      <h3><span class="card-icon-sm">⚙</span> Filtros</h3>
+      <div class="rpt-form-row">
+        <div class="config-group">
+          <label>Fecha inicio</label>
+          <input type="date" [(ngModel)]="reporteFechaInicio">
         </div>
-      </section>
+        <div class="config-group">
+          <label>Fecha fin</label>
+          <input type="date" [(ngModel)]="reporteFechaFin">
+        </div>
+      </div>
+      <div class="rpt-form-row rpt-form-row--three">
+        <div class="config-group">
+          <label>Período</label>
+          <select [(ngModel)]="reportePeriodo">
+            <option value="mes_actual">Este mes</option>
+            <option value="mes_anterior">Mes anterior</option>
+            <option value="trimestre">Últimos 3 meses</option>
+            <option value="personalizado">Personalizado</option>
+          </select>
+        </div>
+        <div class="config-group">
+          <label>Departamento</label>
+          <select [(ngModel)]="reporteDepartamento">
+            <option value="todos">Todos</option>
+            <option value="ventas">Ventas</option>
+            <option value="operaciones">Operaciones</option>
+            <option value="rrhh">RRHH</option>
+          </select>
+        </div>
+        <div class="config-group">
+          <label>Formato</label>
+          <select [(ngModel)]="reporteFormato">
+            <option value="xlsx">Excel (.xlsx)</option>
+            <option value="csv">CSV (.csv)</option>
+            <option value="pdf">PDF</option>
+          </select>
+        </div>
+      </div>
+      <div class="rpt-acciones">
+        <button class="save-btn rpt-btn-primary">
+          ⬇ Generar reporte
+        </button>
+        <button class="rpt-btn-secondary">
+          ◉ Vista previa
+        </button>
+        <button class="rpt-btn-secondary" (click)="limpiarFiltrosReporte()">
+          ↻ Limpiar
+        </button>
+      </div>
+    </div>
+
+    <!-- Vista previa estática -->
+    <div class="config-card">
+      <h3><span class="card-icon-sm">⊞</span> Vista previa — Asistencia junio 2025</h3>
+      <div class="rpt-preview-stats">
+        <div class="rpt-prev-stat">
+          <span class="rpt-prev-num">142</span>
+          <span class="rpt-prev-lbl">Registros totales</span>
+        </div>
+        <div class="rpt-prev-stat">
+          <span class="rpt-prev-num">94.3<small>%</small></span>
+          <span class="rpt-prev-lbl">Asistencia global</span>
+        </div>
+        <div class="rpt-prev-stat">
+          <span class="rpt-prev-num">8</span>
+          <span class="rpt-prev-lbl">Empleados evaluados</span>
+        </div>
+      </div>
+      <div class="rpt-barra-wrap">
+        <div class="rpt-barra-label">
+          <span>Exitosos</span><span>134 / 142</span>
+        </div>
+        <div class="rpt-barra-bg">
+          <div class="rpt-barra-fill rpt-barra-success" style="width: 94%"></div>
+        </div>
+      </div>
+      <div class="rpt-barra-wrap">
+        <div class="rpt-barra-label">
+          <span>Faltas</span><span>8 / 142</span>
+        </div>
+        <div class="rpt-barra-bg">
+          <div class="rpt-barra-fill rpt-barra-danger" style="width: 6%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Historial -->
+    <div class="config-card">
+      <h3><span class="card-icon-sm">◑</span> Reportes recientes</h3>
+      <div class="rpt-tabla-wrap">
+        <table class="rpt-tabla">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Tipo</th>
+              <th>Período</th>
+              <th>Generado</th>
+              <th>Estado</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>asistencia_mayo_2025.xlsx</td>
+              <td>Asistencia</td>
+              <td>May 2025</td>
+              <td>01 jun 2025</td>
+              <td><span class="rpt-badge rpt-badge-ok">✓ Listo</span></td>
+              <td><button class="rpt-dl-btn">⬇ Descargar</button></td>
+            </tr>
+            <tr>
+              <td>faltas_abril_2025.xlsx</td>
+              <td>Faltas</td>
+              <td>Abr 2025</td>
+              <td>02 may 2025</td>
+              <td><span class="rpt-badge rpt-badge-ok">✓ Listo</span></td>
+              <td><button class="rpt-dl-btn">⬇ Descargar</button></td>
+            </tr>
+            <tr>
+              <td>ranking_q1_2025.xlsx</td>
+              <td>Ranking</td>
+              <td>Q1 2025</td>
+              <td>01 abr 2025</td>
+              <td><span class="rpt-badge rpt-badge-proc">⏱ Procesando</span></td>
+              <td><button class="rpt-dl-btn" disabled>— Esperar</button></td>
+            </tr>
+            <tr>
+              <td>accesos_marzo_2025.csv</td>
+              <td>Accesos</td>
+              <td>Mar 2025</td>
+              <td>01 abr 2025</td>
+              <td><span class="rpt-badge rpt-badge-err">✕ Error</span></td>
+              <td><button class="rpt-dl-btn">↻ Reintentar</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</ng-container>
+      <!-- ─── CONFIG SECTION ─── -->
+    <!-- ─── CONFIG SECTION ─── -->
+<ng-container *ngIf="activeSection === 'configuracion'">
+
+  <div class="config-grid">
+
+    <!-- HORARIO -->
+    <div class="config-card">
+
+      <h3>Horario laboral</h3>
+
+      <div class="config-group">
+        <label>Hora entrada</label>
+
+        <input
+          type="time"
+          [(ngModel)]="config.hora_entrada">
+      </div>
+
+      <div class="config-group">
+        <label>Hora salida</label>
+
+        <input
+          type="time"
+          [(ngModel)]="config.hora_salida">
+      </div>
+
+      <div class="config-group">
+        <label>Tolerancia (minutos)</label>
+
+        <input
+          type="number"
+          [(ngModel)]="config.tolerancia_minutos">
+      </div>
+
+      <button
+        class="save-btn"
+        [class.save-btn--saved]="saveStatus.configuracion"
+        (click)="saveConfig('configuracion')">
+
+        <span class="save-btn__icon" *ngIf="saveStatus.configuracion">✓</span>
+        {{ saveStatus.configuracion ? 'Cambios guardados' : 'Guardar configuración' }}
+
+      </button>
+
+    </div>
+
+    <!-- USUARIOS -->
+    <div class="config-card">
+
+      <h3>Límite de usuarios</h3>
+
+      <div class="limit-box">
+
+        <span class="limit-number">
+          {{ config.max_usuarios }}
+        </span>
+
+        <button class="upgrade-btn">
+          Aumentar plan
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- ADMINS -->
+    <div class="config-card">
+
+      <h3>Administradores</h3>
+
+      <div
+        class="admin-item"
+        *ngFor="let admin of admins">
+
+        <span>{{ admin.nombre }}</span>
+
+      </div>
+
+    </div>
+
+    <!-- GEO -->
+    <div class="config-card">
+
+      <h3>Puntos de geolocalización</h3>
+
+      <p>
+        Próximamente podrás agregar múltiples puntos.
+      </p>
+
+    </div>
+
+  </div>
+
+    <!-- CHAT-BOT SECCION  VIRTUALIA -->
+</ng-container>
+      
+       <ng-container *ngIf="activeSection === 'virtualia'">
+        <section class="virtualia-section">
+          <div class="virtualia-header">
+            <div>
+              <span class="virtualia-kicker">Analisis empresarial</span>
+              <h2>Virtualia ChatBot</h2>
+            </div>
+            <span class="virtualia-status">Datos SQL protegidos por tenant</span>
+          </div>
+
+          <div class="virtualia-chat">
+            <div class="virtualia-messages">
+              <div
+                class="virtualia-message"
+                *ngFor="let message of virtualiaMessages"
+                [class.user-message]="message.role === 'user'"
+                [class.assistant-message]="message.role === 'assistant'">
+                <div class="message-avatar">
+                  {{ message.role === 'user' ? 'AD' : 'VI' }}
+                </div>
+                <div class="message-bubble">
+                  <pre>{{ message.content }}</pre>
+                </div>
+              </div>
+
+              <div class="virtualia-message assistant-message" *ngIf="virtualiaLoading">
+                <div class="message-avatar">VI</div>
+                <div class="message-bubble typing-bubble">
+                  <span class="typing-dot"></span>
+                  <span class="typing-dot"></span>
+                  <span class="typing-dot"></span>
+                </div>
+              </div>
+            </div>
+
+            <form class="virtualia-input-row" (ngSubmit)="sendVirtualiaMessage()">
+              <textarea
+                name="virtualiaQuestion"
+                [(ngModel)]="virtualiaQuestion"
+                rows="2"
+                [disabled]="virtualiaLoading"
+                placeholder="Pregunta por retrasos, faltas, rankings, asistencia o ubicaciones"></textarea>
+              <button
+                class="send-btn"
+                type="submit"
+                [disabled]="virtualiaLoading || !virtualiaQuestion.trim()">
+                Enviar
+              </button>
+            </form>
+          </div>
+        </section>
+      </ng-container>
+
     </main>
   </div>
 </div>

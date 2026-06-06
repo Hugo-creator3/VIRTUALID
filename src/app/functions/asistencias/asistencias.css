@@ -96,7 +96,7 @@
 }
 
 .header-section h1 {
-  font-size: 48px;
+  font-size: 35px;
   font-weight: 700;
   color: #1a1a1a;
   margin: 0;
@@ -365,6 +365,14 @@
   box-shadow: 0 4px 16px rgba(239, 68, 68, 0.45);
   filter: brightness(1.08);
 }
+.estado-badge.retraso {
+
+  background: #eed70d;
+  color: white;
+  box-shadow: 0 2px 8px rgba(99, 89, 4, 0.3);
+
+}
+
 
 .status-icon {
   width: 20px;

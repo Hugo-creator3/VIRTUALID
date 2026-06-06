@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { UsuariosService } from '../../../services/usuarios.service';
+
 
 interface User {
   id: number;
   nombre: string;
   email: string;
-  ubicacion: string;
+  telefono: string;
   fechaRegistro: string;
   selected: boolean;
 }
+
+
 
 @Component({
   selector: 'app-lista-usuarios',
@@ -24,172 +28,134 @@ export class ListaUsuarios implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 9;
   totalPages: number = 1;
+  searchTerm: string = '';
+filteredUsers: User[] = [];
+
+nuevoUsuario: any = {
+  nombre: '',
+  apellidos: '',
+  email: '',
+  password: '',
+  telefono: '',
+  genero: ''
+};
+
+usuarioEnEdicion: any = {
+  id: null,
+  nombre: '',
+  apellidos: '',
+  email: '',
+  telefono: ''
+};
+
+showAddModal: boolean = false;
+showEditModal: boolean = false;
+showConfirmModal: boolean = false;
+showStatusModal: boolean = false;
+
+confirmModalData = {
+  title: '',
+  message: '',
+  confirmText: 'Confirmar',
+  cancelText: 'Cancelar',
+  onConfirm: () => {}
+};
+
+statusModalData = {
+  title: '',
+  message: '',
+  type: 'success' as 'success' | 'error' | 'info'
+};
 
   ngOnInit() {
-    this.loadUsers();
-    this.updatePaginatedUsers();
+    this.loadUsers();   
   }
+  constructor(
+    private usuariosService: UsuariosService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
-  loadUsers() {
-    this.users = [
-      {
-        id: 1,
-        nombre: 'Leslie Maya',
-        email: 'leslie@gmail.com',
-        ubicacion: 'Los Angeles, CA',
-        fechaRegistro: 'October 2, 2010',
-        selected: false
-      },
-      {
-        id: 2,
-        nombre: 'Josie Deck',
-        email: 'josie@gmail.com',
-        ubicacion: 'Cheyenne, WY',
-        fechaRegistro: 'October 3, 2011',
-        selected: false
-      },
-      {
-        id: 3,
-        nombre: 'Alex Pfeiffer',
-        email: 'alex@gmail.com',
-        ubicacion: 'Cheyenne, WY',
-        fechaRegistro: 'May 20, 2015',
-        selected: false
-      },
-      {
-        id: 4,
-        nombre: 'Mike Dean',
-        email: 'mike@gmail.com',
-        ubicacion: 'Syracuse, NY',
-        fechaRegistro: 'July 14, 2015',
-        selected: false
-      },
-      {
-        id: 5,
-        nombre: 'Mateus Cunha',
-        email: 'cunha@gmail.com',
-        ubicacion: 'Luanda, AN',
-        fechaRegistro: 'October, 2016',
-        selected: false
-      },
-      {
-        id: 6,
-        nombre: 'Nzola Uemo',
-        email: 'nzola@gmail.com',
-        ubicacion: 'Lagos, NG',
-        fechaRegistro: 'June 5, 2016',
-        selected: false
-      },
-      {
-        id: 7,
-        nombre: 'Antony Mack',
-        email: 'mack@gmail.com',
-        ubicacion: 'London, ENG',
-        fechaRegistro: 'June 15, 2015',
-        selected: false
-      },
-      {
-        id: 8,
-        nombre: 'André da Silva',
-        email: 'andré@gmail.com',
-        ubicacion: 'São Paulo, BR',
-        fechaRegistro: 'March 13, 2018',
-        selected: false
-      },
-      {
-        id: 9,
-        nombre: 'Jorge Ferreira',
-        email: 'jorge@gmail.com',
-        ubicacion: 'Huambo, Angola',
-        fechaRegistro: 'March 14, 2018',
-        selected: false
-      },
-      {
-        id: 10,
-        nombre: 'Maria Garcia',
-        email: 'maria@gmail.com',
-        ubicacion: 'Madrid, ES',
-        fechaRegistro: 'January 5, 2019',
-        selected: false
-      },
-      {
-        id: 11,
-        nombre: 'John Smith',
-        email: 'john@gmail.com',
-        ubicacion: 'New York, NY',
-        fechaRegistro: 'February 15, 2019',
-        selected: false
-      },
-      {
-        id: 12,
-        nombre: 'Ana Santos',
-        email: 'ana@gmail.com',
-        ubicacion: 'Lisbon, PT',
-        fechaRegistro: 'March 20, 2019',
-        selected: false
-      },
-      {
-        id: 13,
-        nombre: 'Carlos Mendez',
-        email: 'carlos@gmail.com',
-        ubicacion: 'Mexico City, MX',
-        fechaRegistro: 'April 10, 2019',
-        selected: false
-      },
-      {
-        id: 14,
-        nombre: 'Sophie Laurent',
-        email: 'sophie@gmail.com',
-        ubicacion: 'Paris, FR',
-        fechaRegistro: 'May 25, 2019',
-        selected: false
-      },
-      {
-        id: 15,
-        nombre: 'Hans Mueller',
-        email: 'hans@gmail.com',
-        ubicacion: 'Berlin, DE',
-        fechaRegistro: 'June 30, 2019',
-        selected: false
-      }
-    ];
+loadUsers() {
+  this.usuariosService.getUsuarios().subscribe({
+    next: (data) => {
 
-    this.totalPages = Math.ceil(this.users.length / this.itemsPerPage);
-  }
+      this.users = data.map(u => ({
+  id: Number(u.id_usuario),
+  nombre: `${u.nombre} ${u.apellidos}`,
+  email: u.email,
+  telefono: u.telefono || 'Sin teléfono',
+  fechaRegistro: new Date(u.fecha_creacion).toLocaleDateString(),
+  selected: false
+}));
 
+this.filteredUsers = [...this.users];
+      this.totalPages = Math.ceil(this.users.length / this.itemsPerPage);
+      this.currentPage = 1;
+      this.updatePaginatedUsers();
+    },
+    error: (err) => {
+      console.error(err);
+    }
+  });
+}
+  
+
+   
   updatePaginatedUsers() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    this.paginatedUsers = this.users.slice(startIndex, endIndex);
+    this.paginatedUsers = this.filteredUsers.slice(startIndex, endIndex);
+  }
+
+  applyFilters() {
+    const term = this.searchTerm.toLowerCase().trim();
+
+    this.filteredUsers = this.users.filter(u =>
+      u.nombre.toLowerCase().includes(term) ||
+      u.email.toLowerCase().includes(term) ||
+      u.telefono.toLowerCase().includes(term)
+    );
+
+    this.totalPages = Math.max(1, Math.ceil(this.filteredUsers.length / this.itemsPerPage));
+    this.currentPage = Math.min(this.currentPage, this.totalPages);
+    this.updatePaginatedUsers();
   }
 
   toggleSelectAll(event: any) {
     const checked = event.target.checked;
     this.paginatedUsers.forEach(user => user.selected = checked);
   }
+deleteUser(user: User) {
+  this.confirmModalData = {
+    title: 'Eliminar usuario',
+    message: `¿Seguro que deseas eliminar a ${user.nombre}?`,
+    confirmText: 'Eliminar',
+    cancelText: 'Cancelar',
+    onConfirm: () => this.confirmDeleteUser(user)
+  };
+  this.showConfirmModal = true;
+}
 
-  deleteUser(user: User) {
-    if (confirm(`¿Estás seguro de eliminar a ${user.nombre}?`)) {
+confirmDeleteUser(user: User) {
+  this.showConfirmModal = false;
+
+  this.usuariosService.deleteUsuario(user.id).subscribe({
+    next: () => {
       this.users = this.users.filter(u => u.id !== user.id);
-      this.totalPages = Math.ceil(this.users.length / this.itemsPerPage);
-      
-      if (this.currentPage > this.totalPages && this.totalPages > 0) {
-        this.currentPage = this.totalPages;
-      }
-      
-      this.updatePaginatedUsers();
-      console.log('Usuario eliminado:', user);
+      this.applyFilters();
+      this.openStatusModal('Usuario eliminado', 'El usuario se eliminó correctamente.', 'success');
+    },
+    error: (err) => {
+      console.error(err);
+      this.openStatusModal('No se pudo eliminar', 'Ocurrió un error al eliminar el usuario.', 'error');
     }
-  }
-
-  editUser(user: User) {
-    console.log('Editar usuario:', user);
-    alert(`Editar usuario: ${user.nombre}`);
-  }
+  });
+}
+ 
 
   showMoreOptions(user: User) {
     console.log('Más opciones para:', user);
-    alert(`Más opciones para: ${user.nombre}`);
+    this.openStatusModal('Más opciones', `Esta acción estará disponible próximamente para ${user.nombre}.`, 'info');
   }
 
   previousPage() {
@@ -231,6 +197,90 @@ export class ListaUsuarios implements OnInit {
     return pages;
   }
 
+  editUser(user: User) {
+    const [nombre, ...apellidosArr] = user.nombre.split(' ');
+    this.usuarioEnEdicion = {
+      id: user.id,
+      nombre: nombre,
+      apellidos: apellidosArr.join(' '),
+      email: user.email,
+      telefono: user.telefono === 'Sin teléfono' ? '' : user.telefono
+    };
+    this.showEditModal = true;
+  }
+
+  submitEditUser() {
+    if (!this.usuarioEnEdicion.nombre || !this.usuarioEnEdicion.email) {
+      this.openStatusModal('Campos incompletos', 'Completa el nombre y correo electrónico para guardar los cambios.', 'error');
+      return;
+    }
+
+    const usuarioActualizado = { ...this.usuarioEnEdicion };
+    this.closeEditModal();
+    this.updateEditedUser(usuarioActualizado);
+  }
+
+  updateEditedUser(usuarioActualizado: any) {
+    this.usuariosService.updateUsuario(usuarioActualizado.id, {
+      nombre: usuarioActualizado.nombre,
+      apellidos: usuarioActualizado.apellidos,
+      email: usuarioActualizado.email,
+      telefono: usuarioActualizado.telefono
+    }).subscribe({
+      next: (response: any) => {
+        // El backend devuelve { count: n }, usamos los datos del formulario
+        const index = this.users.findIndex(u => u.id === usuarioActualizado.id);
+        if (index !== -1) {
+          const nombreCompleto = `${usuarioActualizado.nombre} ${usuarioActualizado.apellidos}`.trim();
+          this.users[index] = {
+            ...this.users[index],
+            nombre: nombreCompleto,
+            email: usuarioActualizado.email,
+            telefono: usuarioActualizado.telefono || 'Sin teléfono'
+          };
+          
+          const filteredIndex = this.filteredUsers.findIndex(u => u.id === usuarioActualizado.id);
+          if (filteredIndex !== -1) {
+            this.filteredUsers[filteredIndex] = this.users[index];
+          }
+
+          this.applyFilters();
+        }
+        this.openStatusModal('Usuario actualizado', 'Los cambios se guardaron correctamente.', 'success');
+      },
+      error: (err) => {
+        console.error('Error:', err);
+        this.openStatusModal('No se pudo actualizar', 'No fue posible guardar los cambios del usuario.', 'error');
+      }
+    });
+  }
+
+  closeAddModal() {
+    this.showAddModal = false;
+    this.nuevoUsuario = {
+      nombre: '',
+      apellidos: '',
+      email: '',
+      password: '',
+      telefono: '',
+      genero: ''
+    };
+  }
+
+  closeEditModal() {
+    this.showEditModal = false;
+    this.usuarioEnEdicion = {
+      id: null,
+      nombre: '',
+      apellidos: '',
+      email: '',
+      telefono: ''
+    };
+  }
+filterUsers() {
+  this.currentPage = 1;
+  this.applyFilters();
+}
   searchUser() {
     console.log('Buscar usuario');
     alert('Función de búsqueda - Próximamente');
@@ -240,9 +290,52 @@ export class ListaUsuarios implements OnInit {
     console.log('Exportar usuarios');
     alert('Exportar usuarios - Próximamente');
   }
-
-  addUser() {
-    console.log('Agregar usuario');
-    alert('Agregar nuevo usuario - Próximamente');
+addUser() {
+  this.showAddModal = true; // abrir modal
+}
+submitNewUser() {
+  if (!this.nuevoUsuario.nombre || !this.nuevoUsuario.email || !this.nuevoUsuario.password) {
+    this.openStatusModal('Campos incompletos', 'Completa nombre, correo y contraseña para agregar un usuario.', 'error');
+    return;
   }
+
+  this.usuariosService.addUsuario(this.nuevoUsuario).subscribe({
+    next: (res) => {
+      const u = res.usuario;
+      this.users.unshift({
+        id: Number(u.id_usuario),
+        nombre: `${u.nombre} ${u.apellidos}`,
+        email: u.email,
+        telefono: u.telefono || 'Sin teléfono',
+        fechaRegistro: new Date(u.fecha_creacion).toLocaleDateString(),
+        selected: false
+      });
+      this.filteredUsers = [...this.users];
+      this.totalPages = Math.ceil(this.users.length / this.itemsPerPage);
+      this.currentPage = 1;
+      this.updatePaginatedUsers();
+      this.closeAddModal();
+      this.openStatusModal('Usuario agregado', 'El usuario se registró correctamente.', 'success');
+    },
+    error: (err) => {
+      console.error(err);
+      this.openStatusModal('No se pudo agregar', 'No fue posible registrar el usuario. Revisa los datos e inténtalo de nuevo.', 'error');
+    }
+  });
+}
+
+  openStatusModal(title: string, message: string, type: 'success' | 'error' | 'info') {
+    this.statusModalData = { title, message, type };
+    this.showStatusModal = true;
+    this.cdr.detectChanges();
+  }
+
+  closeStatusModal() {
+    this.showStatusModal = false;
+  }
+
+  closeConfirmModal() {
+    this.showConfirmModal = false;
+  }
+
 }

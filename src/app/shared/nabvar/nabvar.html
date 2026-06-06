@@ -1,10 +1,13 @@
 <header class="topbar">
+  <div class="logos">
+    <img [src]="'img/logov.png'" alt="" class="logo">
+  </div>
   <div class="brand"></div>
   <nav class="menu">
     <a class="nav-link" routerLink="/conocenos" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Conocenos</a>
     <a class="nav-link" routerLink="/planes" routerLinkActive="active">Planes</a>
-    <a class="nav-link" routerLink="/login" routerLinkActive="active">Iniciar Sesión</a>
     <a class="nav-link" routerLink="/contactanos" routerLinkActive="active">Contactanos</a>
+    <a class="nav-link" routerLink="/login" routerLinkActive="active">Iniciar Sesión</a>
   </nav>
 
 </header>
@@ -13,7 +16,77 @@
 
   <router-outlet></router-outlet>
 </main>
-
 <footer class="footer">
-  <small></small>
+  <div class="footer-top">
+
+    <!-- Columna: Marca -->
+    <div class="footer-brand">
+      <img [src]="'img/logov.png'" alt="Logo" class="footer-logo">
+      <p>Soluciones pensadas para tu crecimiento. Descubre planes flexibles adaptados a tus necesidades.</p>
+      <div class="social-links">
+        <a href="#" class="social-btn" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M24 4.56v14.91A4.536 4.536 0 0 1 19.44 24H4.56A4.536 4.536 0 0 1 0 19.44V4.56A4.536 4.536 0 0 1 4.56 0h14.88A4.536 4.536 0 0 1 24 4.56zm-7.2 0h-2.16c-.72 0-.96.36-.96.84v1.44H16.8l-.36 2.88h-2.4V16.8h-2.88V9.72H9.6V6.84h1.56V5.16C11.16 2.88 12.48 1.2 14.88 1.2c1.08 0 2.16.12 3.12.24V4.56z"/></svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07..."/></svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569..."/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Columna: Navegación -->
+    <div class="footer-col">
+      <h4>Navegación</h4>
+      <ul>
+        <li><a routerLink="/conocenos">Conócenos</a></li>
+        <li><a routerLink="/planes">Planes</a></li>
+        <li><a routerLink="/contactanos">Contáctanos</a></li>
+        <li><a routerLink="/login">Iniciar Sesión</a></li>
+      </ul>
+    </div>
+
+    <!-- Columna: Legal -->
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a routerLink="/terminos">Términos de uso</a></li>
+        <li><a routerLink="/privacidad">Privacidad</a></li>
+        <li><a href="#">Cookies</a></li>
+        <li><a href="#">Aviso legal</a></li>
+      </ul>
+    </div>
+
+    <!-- Columna: Contacto + Newsletter -->
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <div class="footer-contact-item">
+        <div class="contact-icon"><!-- icono email --></div>
+        <span>contacto@empresa.com</span>
+      </div>
+      <div class="footer-contact-item">
+        <div class="contact-icon"><!-- icono teléfono --></div>
+        <span>+52 (55) 1234-5678</span>
+      </div>
+
+      <h4 style="margin-top: 1.4rem">Newsletter</h4>
+      <div class="newsletter-input-wrap">
+        <input type="email" placeholder="Tu correo electrónico" />
+        <button type="button">Suscribir</button>
+      </div>
+    </div>
+
+  </div>
+
+  <hr class="footer-divider" />
+
+  <div class="footer-bottom">
+    <p>© 2026 <span class="brand-accent">Tu Empresa</span>. Todos los derechos reservados.</p>
+    <div class="footer-legal">
+      <a href="#">Privacidad</a>
+      <a href="#">Términos</a>
+      <a href="#">Cookies</a>
+    </div>
+  </div>
 </footer>
